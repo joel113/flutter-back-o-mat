@@ -25,7 +25,9 @@ https://docs.flutter.dev/get-started/install/macos
 
 ## Flutter Resources
 
-https://api.flutter.dev/flutter/painting/TextStyle-class.html
+https://api.flutter.dev/
+
+https://pub.dev/
 
 ## Flutter GitHub Repository
 

@@ -1,3 +1,4 @@
+import 'package:german_words/german_words.dart';
 import 'package:flutter/material.dart';
 
 void main() {
