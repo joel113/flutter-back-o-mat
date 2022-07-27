@@ -19,6 +19,10 @@ samples, guidance on mobile development, and a full API reference.
 
 https://docs.flutter.dev/get-started/codelab
 
+## Flutter Widgets
+
+https://docs.flutter.dev/development/ui/widgets-intro
+
 ## Flutter Setup on MacOS
 
 https://docs.flutter.dev/get-started/install/macos
@@ -32,3 +36,9 @@ https://pub.dev/
 ## Flutter GitHub Repository
 
 https://github.com/flutter/flutter
+
+## Kotlin
+
+## Kotlin Stackoverflow Resources
+
+https://stackoverflow.com/questions/65715276/a-function-body-must-be-provided-try-adding-a-function-body

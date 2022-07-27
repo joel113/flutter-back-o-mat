@@ -1,4 +1,3 @@
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -8,6 +7,8 @@ void main() {
 class Backomat extends StatelessWidget {
   const Backomat({super.key});
 
+  void _addWorkListItem() {}
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,45 +17,39 @@ class Backomat extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Backomat'),
         ),
-        body: const Center(
-          child: RandomWords(),
+        body: Center(
+          child: WorkListItem(
+              name: 'do something', start: DateTime.now(), end: DateTime.now()),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _addWorkListItem,
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }
 }
 
-class _RandomWordsState extends State<RandomWords> {
-  final _suggestions = <WordPair>[];
-  final _biggerFont = const TextStyle(fontSize: 18);
+class WorkListItem extends StatelessWidget {
+  WorkListItem({
+    required this.name,
+    required this.start,
+    required this.end,
+  }) : super(key: ObjectKey(name));
+
+  final String name;
+  final DateTime start;
+  final DateTime end;
 
   @override
   Widget build(BuildContext context) {
-    // #docregion itemBuilder
-    return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemBuilder: /*1*/ (context, i) {
-        if (i.isOdd) return const Divider(); /*2*/
-
-        final index = i ~/ 2; /*3*/
-        if (index >= _suggestions.length) {
-          _suggestions.addAll(generateWordPairs().take(10)); /*4*/
-        }
-        // #docregion listTile
-        return ListTile(
-          title: Text(
-            _suggestions[index].asPascalCase,
-            style: _biggerFont,
-          ),
-        );
-      },
+    return ListTile(
+      leading: const CircleAvatar(
+        backgroundColor: Colors.red,
+        child: Text("1"),
+      ),
+      title: Text(name + start.toIso8601String() + end.toIso8601String()),
     );
   }
-}
-
-class RandomWords extends StatefulWidget {
-  const RandomWords({super.key});
-
-  @override
-  State<RandomWords> createState() => _RandomWordsState();
 }
