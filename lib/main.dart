@@ -4,17 +4,40 @@ import 'package:intl/intl.dart';
 void main() {
   runApp(Backomat(worklistitems: [
     WorkListItem(
-        step: 1,
-        name: 'Sauerteig ansetzen',
-        description: 'Sauerteig mit genügen Mehl ansetzen',
-        start: DateTime.now().add(const Duration(hours: 2)),
-        end: DateTime.now().add(const Duration(hours: 2))),
+        name: 'Sauerteig auffrischen',
+        description: 'Sauerteig auffrischen',
+        minDuration: const Duration(hours: 8),
+        maxDuration: const Duration(hours: 10)),
     WorkListItem(
-        step: 2,
-        name: 'Sauerteig ansetzen',
-        description: 'Sauerteig mit genügen Mehl ansetzen',
-        start: DateTime.now().add(const Duration(hours: 4)),
-        end: DateTime.now().add(const Duration(hours: 4)))
+        name: 'Sauerteig Stufe 1',
+        description: 'Sauerteig Stufe 1',
+        minDuration: const Duration(hours: 12),
+        maxDuration: const Duration(hours: 16)),
+    WorkListItem(
+        name: 'Sauerteig Stufe 3',
+        description: 'Sauerteig Stufe 3',
+        minDuration: const Duration(hours: 2),
+        maxDuration: const Duration(hours: 2)),
+    WorkListItem(
+        name: 'Brühstück',
+        description: 'Brühstück',
+        minDuration: const Duration(hours: 8),
+        maxDuration: const Duration(hours: 16)),
+    WorkListItem(
+        name: 'Hauptteig',
+        description: 'Hauptteig',
+        minDuration: const Duration(hours: 1),
+        maxDuration: const Duration(hours: 1)),
+    WorkListItem(
+        name: 'Stückgare',
+        description: 'Stückgare',
+        minDuration: const Duration(minutes: 45),
+        maxDuration: const Duration(minutes: 45)),
+    WorkListItem(
+        name: 'Backen',
+        description: 'Backen',
+        minDuration: const Duration(hours: 1),
+        maxDuration: const Duration(hours: 1))
   ]));
 }
 
@@ -46,7 +69,6 @@ class _WorkListState extends State<Backomat> {
           tooltip: 'Increment',
           child: const Icon(Icons.add),
         ), // This trailing comma makes auto-formatting nicer for build methods.
-        ),
       ),
     );
   }
@@ -54,29 +76,28 @@ class _WorkListState extends State<Backomat> {
 
 class WorkListItem extends StatelessWidget {
   WorkListItem(
-      {required this.step,
-      required this.name,
+      {required this.name,
       required this.description,
-      required this.start,
-      required this.end,
+      required this.minDuration,
+      required this.maxDuration,
       this.predecessor})
       : super(key: ObjectKey(name));
 
-  final int step;
   final String name;
   final String? description;
-  final DateTime start;
-  final DateTime end;
+  final Duration minDuration;
+  final Duration maxDuration;
   final WorkListItem? predecessor;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CircleAvatar(
+      leading: const CircleAvatar(
         backgroundColor: Colors.red,
-        child: Text(step.toString()),
+        child: Text("?"),
       ),
-      title: Text("$name     ${DateFormat('E HH:mm').format(start)}"),
+      title: Text(
+          "$name     ${DateFormat('E HH:mm').format(DateTime.now().add(minDuration))}"),
       subtitle: Text(description!),
       trailing: const Icon(Icons.more_vert),
     );
