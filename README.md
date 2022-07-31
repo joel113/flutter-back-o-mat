@@ -23,6 +23,20 @@ https://docs.flutter.dev/get-started/codelab
 
 https://docs.flutter.dev/development/ui/widgets-intro
 
+### Scaffold
+
+https://api.flutter.dev/flutter/material/Scaffold-class.html
+
+### Bottom Navigation Bar
+
+https://api.flutter.dev/flutter/material/BottomNavigationBar-class.html
+
+## Flutter Layouts
+
+https://docs.flutter.dev/development/ui/layout
+
+https://docs.flutter.dev/development/ui/layout/tutorial
+
 ## Flutter Setup on MacOS
 
 https://docs.flutter.dev/get-started/install/macos
