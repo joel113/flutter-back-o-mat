@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_back_o_mat/planner/planner.dart';
+import 'package:flutter_back_o_mat/recipes/recipe.dart';
 
 class BackomatNavigation extends StatefulWidget {
   const BackomatNavigation({super.key});
@@ -14,10 +15,7 @@ class _BackomatNavigationState extends State<BackomatNavigation> {
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     BackomatPlanner(),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
+    Receipe(),
     Text(
       'Index 2: School',
       style: optionStyle,
@@ -42,12 +40,12 @@ class _BackomatNavigationState extends State<BackomatNavigation> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.lock_clock),
-            label: 'Planer',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.book),
             label: 'Rezepte',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.lock_clock),
+            label: 'Planer',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info),
