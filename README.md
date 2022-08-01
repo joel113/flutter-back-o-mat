@@ -23,6 +23,10 @@ https://docs.flutter.dev/get-started/codelab
 
 https://docs.flutter.dev/development/ui/widgets-intro
 
+### ListTile
+
+https://api.flutter.dev/flutter/material/ListTile-class.html
+
 ### Scaffold
 
 https://api.flutter.dev/flutter/material/Scaffold-class.html
@@ -30,6 +34,12 @@ https://api.flutter.dev/flutter/material/Scaffold-class.html
 ### Bottom Navigation Bar
 
 https://api.flutter.dev/flutter/material/BottomNavigationBar-class.html
+
+### Padding
+
+https://api.flutter.dev/flutter/widgets/Padding-class.html
+
+https://api.flutter.dev/flutter/painting/EdgeInsets-class.html
 
 ## Flutter Layouts
 

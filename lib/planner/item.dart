@@ -18,15 +18,23 @@ class Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: const CircleAvatar(
-        backgroundColor: Colors.red,
-        child: Text("?"),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      child: Row(
+        children: <Widget>[
+          const Expanded(
+              child: CircleAvatar(
+            backgroundColor: Colors.purple,
+            child: Text("1"),
+          )),
+          Expanded(flex: 2, child: Text(name)),
+          Expanded(
+              flex: 3,
+              child: Text(DateFormat('E HH:mm')
+                  .format(DateTime.now().add(minDuration)))),
+          const Icon(Icons.more_vert),
+        ],
       ),
-      title: Text(
-          "$name     ${DateFormat('E HH:mm').format(DateTime.now().add(minDuration))}"),
-      subtitle: Text(description!),
-      trailing: const Icon(Icons.more_vert),
     );
   }
 }

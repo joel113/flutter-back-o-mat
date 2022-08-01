@@ -14,8 +14,8 @@ class _BackomatNavigationState extends State<BackomatNavigation> {
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    BackomatPlanner(),
     Receipe(),
+    BackomatPlanner(),
     Text(
       'Index 2: School',
       style: optionStyle,

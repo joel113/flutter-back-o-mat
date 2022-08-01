@@ -64,7 +64,7 @@ class Receipe extends StatelessWidget {
     );
 
     Widget buttonSection = Padding(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(32),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -74,7 +74,7 @@ class Receipe extends StatelessWidget {
         ));
 
     Widget textSection = const Padding(
-      padding: EdgeInsets.all(32),
+      padding: EdgeInsets.only(left: 32),
       child: Text(
         'Ein schönes Brot aus Roggen und Dinkel. Durch die Verwendung von Dinkel'
         'bekommt das Brot einen tollen Geschmack. Ich habe das Brot von Plötzblog'
@@ -84,7 +84,7 @@ class Receipe extends StatelessWidget {
       ),
     );
 
-    return Column(
+    return ListView(
       children: [
         Image.asset(
           'images/DSC_4302.jpg',
