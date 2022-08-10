@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_back_o_mat/planner/planner.dart';
-import 'package:flutter_back_o_mat/recipes/recipe.dart';
+import 'package:flutter_back_o_mat/recipes/receipes.dart';
 
 class BackomatNavigation extends StatefulWidget {
   const BackomatNavigation({super.key});
@@ -14,7 +14,7 @@ class _BackomatNavigationState extends State<BackomatNavigation> {
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Receipe(),
+    BackomatReceipes(),
     BackomatPlanner(),
     Text(
       'Index 2: School',
