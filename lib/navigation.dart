@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_back_o_mat/planner/planner.dart';
-import 'package:flutter_back_o_mat/recipes/receipes.dart';
+import 'package:flutter_back_o_mat/recipes/recipes.dart';
 
 class BackomatNavigation extends StatefulWidget {
   const BackomatNavigation({super.key});

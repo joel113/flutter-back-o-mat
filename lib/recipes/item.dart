@@ -12,11 +12,11 @@ class Item extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      padding: const EdgeInsets.all(15.0),
       child: Row(
         children: <Widget>[
-          Expanded(flex: 2, child: Text(name)),
-          Expanded(flex: 2, child: Text(description!)),
+          Expanded(flex: 1, child: Text(name)),
+          Expanded(flex: 3, child: Text(description!)),
           const Icon(Icons.more_vert),
         ],
       ),
