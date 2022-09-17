@@ -2,33 +2,48 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:io';
+import 'dart:convert';
 import 'item.dart';
 
-class BackomatReceipes extends StatefulWidget {
-  const BackomatReceipes({Key? key}) : super(key: key);
+class BackomatRecipes extends StatefulWidget {
+  const BackomatRecipes({Key? key}) : super(key: key);
 
   @override
-  State<BackomatReceipes> createState() => _BackomatReceipesState();
+  State<BackomatRecipes> createState() => _BackomatRecipesState();
 }
 
-class _BackomatReceipesState extends State<BackomatReceipes> {
-  final _receipesList = <Item>[
-    Item(
-      name: 'Bergkruste',
-      description: 'Intensives aromatisches Brot aus Dinkel und Roggen.',
-    ),
-    Item(
-      name: 'San Francisco Sourdough Bread aus Dinkel',
-      description: 'Dinkelsauerteig Brot auf Basis des San Francisco Sourdough Bread Brotes aus dem Brotbackbuch Nr. 4.',
-    )
-  ];
+class _BackomatRecipesState extends State<BackomatRecipes> {
+  final recipes = <Item>[];
 
-  void _addItem() {}
+  @override
+  void initState() {
+    addRecipesFromApplicationDocuments();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final applicationDocumentFiles = _applicationDocmentFiles;
-    return Scaffold(body: ListView(children: _receipesList.toList()));
+    return Scaffold(body: ListView.builder(
+        itemCount: recipes.length,
+        itemBuilder: (BuildContext itemContext, int index) {
+          return recipes[index];
+        }));
+  }
+
+  void addRecipesFromApplicationDocuments() async {
+    await _applicationDocumentFiles
+        .then((fileEntity) => fileEntity
+          .whereType<File>()
+          .forEach((file) => file.readAsString()
+            .then((fileString) {
+              final decodedJson = jsonDecode(fileString);
+              final item = Item(
+                name: decodedJson["name"],
+                description: decodedJson["description"]);
+              setState(() {
+                recipes.add(item);
+              });
+            })));
   }
 
   Future<String> get _applicationDocumentsPath async {
@@ -36,15 +51,14 @@ class _BackomatReceipesState extends State<BackomatReceipes> {
     return directory.path;
   }
 
-  Future<List<FileSystemEntity>> get _applicationDocmentFiles async {
+  Future<List<FileSystemEntity>> get _applicationDocumentFiles async {
     final path = await _applicationDocumentsPath;
     final dir = Directory('$path/recipes');
     final future = dir.exists().then((value) {
-      if(!value) {
+      if (!value) {
         dir.create();
       }
     });
-    final list = await future.whenComplete(() => dir.list().toList());
-    return list;
+    return future.then((value) => dir.list().toList());
   }
 }
