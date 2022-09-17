@@ -23,23 +23,34 @@ class _BackomatRecipesState extends State<BackomatRecipes> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: ListView.builder(
-        itemCount: recipes.length,
-        itemBuilder: (BuildContext itemContext, int index) {
-          return recipes[index];
-        }));
+    return Scaffold(
+        body: ListView.separated(
+      itemCount: recipes.length,
+      itemBuilder: (BuildContext itemContext, int index) {
+        return Container(
+          color: Colors.amber[100],
+          child: recipes[index],
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) => const Divider(),
+    ));
   }
 
   void addRecipesFromApplicationDocuments() async {
-    await _applicationDocumentFiles
-        .then((fileEntity) => fileEntity
-          .whereType<File>()
-          .forEach((file) => file.readAsString()
-            .then((fileString) {
+    await _applicationDocumentFiles.then((fileEntity) => fileEntity
+        .whereType<File>()
+        .where((element) =>
+            element.path
+                .substring(element.path.length - 4, element.path.length) ==
+            "json")
+        .forEach((file) => file.readAsString().then((fileString) {
               final decodedJson = jsonDecode(fileString);
+              final image = Image.file(
+                  File("${file.parent.path}/${decodedJson["image"]}"));
               final item = Item(
-                name: decodedJson["name"],
-                description: decodedJson["description"]);
+                  image: image,
+                  name: decodedJson["name"],
+                  description: decodedJson["description"]);
               setState(() {
                 recipes.add(item);
               });
