@@ -12,7 +12,7 @@ class BackomatNavigation extends StatefulWidget {
 class _BackomatNavigationState extends State<BackomatNavigation> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     BackomatRecipes(),
     BackomatPlanner(),

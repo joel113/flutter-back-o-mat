@@ -51,6 +51,10 @@ https://docs.flutter.dev/development/ui/layout
 
 https://docs.flutter.dev/development/ui/layout/tutorial
 
+## Flutter Navigation
+
+https://docs.flutter.dev/cookbook/navigation/navigation-basics
+
 ## Flutter Setup on MacOS
 
 https://docs.flutter.dev/get-started/install/macos
@@ -70,6 +74,16 @@ https://github.com/flutter/flutter
 https://stackoverflow.com/questions/51638176/under-which-circumstances-textalign-property-works-in-flutter
 
 https://stackoverflow.com/questions/52774921/space-between-columns-children-in-flutter
+
+https://stackoverflow.com/questions/71832067/change-the-bottom-navigation-screen-and-its-index-on-button-press
+
+https://stackoverflow.com/questions/48481590/how-to-set-update-state-of-statefulwidget-from-other-statefulwidget-in-flutter
+
+https://stackoverflow.com/questions/71479979/how-to-assign-a-callback-function-to-a-variable
+
+https://stackoverflow.com/questions/50287995/passing-data-to-statefulwidget-and-accessing-it-in-its-state-in-flutter
+
+https://stackoverflow.com/questions/52048101/how-to-reset-the-base-route-in-my-flutter-app-that-is-pop-any-routes-and-repla
 
 # Dart
 

@@ -64,7 +64,7 @@ class Recipe extends StatelessWidget {
     );
 
     Widget buttonSection = Padding(
-        padding: EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -84,18 +84,22 @@ class Recipe extends StatelessWidget {
       ),
     );
 
-    return ListView(
-      children: [
-        Image.asset(
-          'images/DSC_4302.jpg',
-          width: 600,
-          height: 240,
-          fit: BoxFit.cover,
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Backomat'),
         ),
-        titleSection,
-        textSection,
-        buttonSection,
-      ],
-    );
+        body: ListView(
+          children: [
+            Image.asset(
+              'images/DSC_4302.jpg',
+              width: 600,
+              height: 240,
+              fit: BoxFit.cover,
+            ),
+            titleSection,
+            textSection,
+            buttonSection,
+          ],
+        ));
   }
 }

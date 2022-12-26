@@ -2,10 +2,206 @@
   "image": "20220907-bergkruste.jpg",
   "name": "Bergkruste",
   "description": "Intensives aromatisches Brot aus Dinkel und Roggen.",
-  "ingredients" : [
+  "ingredients": [
     {
-      "kind": "asdf",
-      "amount": 123
+      "id": 1,
+      "kind": "Roggenmehl 1150",
+      "amount": 293,
+      "unit": "gram"
+    },
+    {
+      "id": 2,
+      "kind": "Dinkelvollkornmehl",
+      "amount": 150,
+      "unit": "gram"
+    },
+    {
+      "id": 3,
+      "kind": "Dinkelmehl 630",
+      "amount": 50,
+      "unit": "gram"
+    },
+    {
+      "id": 4,
+      "kind": "Röstbrot",
+      "amount": 15,
+      "unit": "gram"
+    },
+    {
+      "id": 5,
+      "kind": "Anstellgut",
+      "amount": 15,
+      "unit": "gram"
+    },
+    {
+      "id": 6,
+      "kind": "Salz",
+      "amount": 4.5,
+      "unit": "gram"
+    },
+    {
+      "id": 7,
+      "kind": "Wasser",
+      "amount": 460,
+      "unit": "gram"
+    }
+  ],
+  "stages": [
+    {
+      "id": 8,
+      "name": "Sauerteig Stufe 1",
+      "ingredients": [
+        {
+          "id": 1,
+          "amount": 75
+        },
+        {
+          "id": 5,
+          "amount": 15
+        },
+        {
+          "id": 7,
+          "amount": 75,
+          "condition": "50 C°"
+        }
+      ],
+      "description": "Mischen und 12 bis 16 Stunden bei Raumtemperatur (ca. 20 C°) reifen lassen",
+      "duration": {
+        "lower value": 12,
+        "upper value": 16,
+        "unit": "hours"
+      },
+      "temperature": {
+        "value": "20 C°"
+      }
+    },
+    {
+      "id": 9,
+      "name" : "Sauerteig Stufe 2",
+      "ingredients" : [
+        {
+          "id": 8
+        },
+        {
+          "id": 2,
+          "amount": 150
+        },
+        {
+          "id": 7,
+          "amount": 150,
+          "condition": "45 °C"
+        },
+        {
+          "id": 6,
+          "amount": 3
+        }
+      ],
+      "description": "Die Zutaten von Stufe 2 zur Stufe 1 mischen und 2 Stunden bei 28 C° reifen lassen",
+      "duration": {
+        "lower value": 2,
+        "upper value": 2,
+        "unit": "hours"
+      },
+      "temperature": {
+        "value": "28 C°"
+      }
+    },
+    {
+      "id": 10,
+      "name": "Brühstück",
+      "ingredients" : [
+        {
+          "id": 4,
+          "amount": 50
+        },
+        {
+          "id": 7,
+          "amount": 150,
+          "condition": "100 °C"
+        },
+        {
+          "id": 6,
+          "amount": 6
+        }
+      ],
+      "description": "Kochende Wasser mit dem gerösteten Altbrot und dem Salz mischen, mit Klarsichtfolie auf der Oberfläche abdecken und 8 bis 16 Stunden quellen lassen",
+      "duration": {
+        "lower value": 8,
+        "upper value": 16,
+        "unit": "hours"
+      }
+    },
+    {
+      "id": 11,
+      "name": "Hauptteig",
+      "ingredients" : [
+        {
+          "id": 9
+        },
+        {
+          "id": 10
+        },
+        {
+          "id": 1,
+          "amount": 218
+        },
+        {
+          "id": 3,
+          "amount": 639
+        },
+        {
+          "id": 7,
+          "amount": 85,
+          "condition": "70 C°"
+        }
+      ],
+      "description": "Für den Hauptteig das heiße Wasser mit dem Brühstück mischen, das Mehl darübergeben und darauf alle weiteren Zutaten wiegen. Alle Zutaten 5 Minuten auf niedrigster Stufe oder von Hand zu einem mittelfesten Teig mischen (Teigtemperatur ca. 29°C).\n\nDen Teig 1 Stunde bei Raumtemperatur ruhen lassen.",
+      "duration": {
+        "lower value": 1,
+        "upper value": 1,
+        "unit": "hours"
+      },
+      "temperature": {
+        "lower value": "21 C°",
+        "upper value": "21 C°"
+      }
+    },
+    {
+      "id": 12,
+      "name": "Hauptteig",
+      "ingredients" : [
+        {
+          "id": 11
+        },
+      ],
+      "description": "Den Teig rundwirken und mit Schluss nach unten 45 Minuten im Gärkorb bei Raumtemperatur reifen lassen.",
+      "duration": {
+        "lower value": 45,
+        "upper value": 45,
+        "unit": "minutes"
+      },
+      "temperature": {
+        "value": "21 C°"
+      }
+    },
+    {
+      "id": 13,
+      "name": "Brot",
+      "ingredients" : [
+        {
+          "id": 12
+        },
+      ],
+      "description": "Mit Schluss nach oben ca. 1 Stunde bei 280°C (250°C) fallend auf 210°C mit Dampf backen.",
+      "duration": {
+        "lower value": 1,
+        "upper value": 1,
+        "unit": "hours"
+      },
+      "temperature": {
+        "upper value": "280 C°",
+        "lower value": "210 C°"
+      }
     }
   ]
 }
