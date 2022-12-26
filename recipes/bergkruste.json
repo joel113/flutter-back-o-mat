@@ -1,5 +1,11 @@
 {
   "image": "20220907-bergkruste.jpg",
   "name": "Bergkruste",
-  "description": "Intensives aromatisches Brot aus Dinkel und Roggen."
+  "description": "Intensives aromatisches Brot aus Dinkel und Roggen.",
+  "ingredients" : [
+    {
+      "kind": "asdf",
+      "amount": 123
+    }
+  ]
 }

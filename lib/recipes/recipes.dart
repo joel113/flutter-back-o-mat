@@ -24,16 +24,17 @@ class _BackomatRecipesState extends State<BackomatRecipes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView.separated(
-      itemCount: recipes.length,
-      itemBuilder: (BuildContext itemContext, int index) {
-        return Container(
-          color: Colors.amber[100],
-          child: recipes[index],
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) => const Divider(),
-    ));
+      body: ListView.separated(
+        itemCount: recipes.length,
+        itemBuilder: (BuildContext itemContext, int index) {
+          return Container(
+            child: recipes[index],
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
+      ),
+      backgroundColor: Colors.grey[200],
+    );
   }
 
   void addRecipesFromApplicationDocuments() async {

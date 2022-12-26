@@ -65,6 +65,12 @@ https://pub.dev/
 
 https://github.com/flutter/flutter
 
+## Flutter Q&A
+
+https://stackoverflow.com/questions/51638176/under-which-circumstances-textalign-property-works-in-flutter
+
+https://stackoverflow.com/questions/52774921/space-between-columns-children-in-flutter
+
 # Dart
 
 https://dart.dev/codelabs/dart-cheatsheet

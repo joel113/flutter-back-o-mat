@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Receipe extends StatelessWidget {
-  const Receipe({Key? key}) : super(key: key);
+class Recipe extends StatelessWidget {
+  const Recipe({Key? key}) : super(key: key);
 
   Column _buildButtonColumn(Color color, IconData icon, String label) {
     return Column(
