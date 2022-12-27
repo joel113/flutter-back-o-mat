@@ -11,12 +11,20 @@ class ItemIngredients extends StatelessWidget {
 
   final int id;
   final String? name;
-  final double amount;
-  final String unit;
-  final String condition;
+  final double? amount;
+  final String? unit;
+  final String? condition;
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement
+    return Container();
   }
+
+  ItemIngredients.fromJson(Map<String, dynamic> json, {Key? key})
+      : id = json['id'],
+        name = json['name'],
+        amount = json['amount'],
+        unit = json['unit'],
+        condition = json['condition'],
+        super(key: key);
 }

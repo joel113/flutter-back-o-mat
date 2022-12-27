@@ -1,6 +1,6 @@
 # Flutter Back-o-Mat
 
-a flutter project for having a back-o-mat
+A flutter project for having a back-o-mat.
 
 ## Getting Started
 
@@ -55,6 +55,10 @@ https://docs.flutter.dev/development/ui/layout/tutorial
 
 https://docs.flutter.dev/cookbook/navigation/navigation-basics
 
+## Flutter JSON and serialization
+
+https://docs.flutter.dev/development/data-and-backend/json
+
 ## Flutter Setup on MacOS
 
 https://docs.flutter.dev/get-started/install/macos
@@ -87,9 +91,25 @@ https://stackoverflow.com/questions/52048101/how-to-reset-the-base-route-in-my-f
 
 https://stackoverflow.com/questions/15804101/dart-lambda-shortland-function-confusion
 
+https://stackoverflow.com/questions/51053954/how-to-deserialize-a-list-of-objects-from-json-in-flutter
+
+https://stackoverflow.com/questions/51901002/is-there-a-way-to-load-async-data-on-initstate-method
+
+https://stackoverflow.com/questions/67040839/flutter-lateinitializationerror-field-name-has-not-been-initialized
+
+https://stackoverflow.com/questions/53455358/how-to-present-an-empty-view-in-flutter
+
+https://stackoverflow.com/questions/49713189/how-to-use-conditional-statement-within-child-attribute-of-a-flutter-widget-cen
+
+https://stackoverflow.com/questions/66240406/how-to-properly-json-encode-decode-a-duration-field-in-flutter
+
 # Dart
 
 https://dart.dev/codelabs/dart-cheatsheet
+
+Announcements about dart can be found on:
+
+https://medium.com/dartlang
 
 # Kotlin
 

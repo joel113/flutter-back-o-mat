@@ -6,31 +6,31 @@
     {
       "id": 1,
       "kind": "Roggenmehl 1150",
-      "amount": 293,
+      "amount": 293.0,
       "unit": "gram"
     },
     {
       "id": 2,
       "kind": "Dinkelvollkornmehl",
-      "amount": 150,
+      "amount": 150.0,
       "unit": "gram"
     },
     {
       "id": 3,
       "kind": "Dinkelmehl 630",
-      "amount": 50,
+      "amount": 50.0,
       "unit": "gram"
     },
     {
       "id": 4,
       "kind": "Röstbrot",
-      "amount": 15,
+      "amount": 15.0,
       "unit": "gram"
     },
     {
       "id": 5,
       "kind": "Anstellgut",
-      "amount": 15,
+      "amount": 15.0,
       "unit": "gram"
     },
     {
@@ -42,7 +42,7 @@
     {
       "id": 7,
       "kind": "Wasser",
-      "amount": 460,
+      "amount": 460.0,
       "unit": "gram"
     }
   ],
@@ -53,15 +53,15 @@
       "ingredients": [
         {
           "id": 1,
-          "amount": 75
+          "amount": 75.0
         },
         {
           "id": 5,
-          "amount": 15
+          "amount": 15.0
         },
         {
           "id": 7,
-          "amount": 75,
+          "amount": 75.0,
           "condition": "50 C°"
         }
       ],
@@ -72,7 +72,8 @@
         "unit": "hours"
       },
       "temperature": {
-        "value": "20 C°"
+        "lower value": 20,
+        "upper value": 20
       }
     },
     {
@@ -84,16 +85,16 @@
         },
         {
           "id": 2,
-          "amount": 150
+          "amount": 150.0
         },
         {
           "id": 7,
-          "amount": 150,
+          "amount": 150.0,
           "condition": "45 °C"
         },
         {
           "id": 6,
-          "amount": 3
+          "amount": 3.0
         }
       ],
       "description": "Die Zutaten von Stufe 2 zur Stufe 1 mischen und 2 Stunden bei 28 C° reifen lassen",
@@ -103,7 +104,8 @@
         "unit": "hours"
       },
       "temperature": {
-        "value": "28 C°"
+        "lower value": 28,
+        "upper value": 28
       }
     },
     {
@@ -112,16 +114,16 @@
       "ingredients" : [
         {
           "id": 4,
-          "amount": 50
+          "amount": 50.0
         },
         {
           "id": 7,
-          "amount": 150,
+          "amount": 150.0,
           "condition": "100 °C"
         },
         {
           "id": 6,
-          "amount": 6
+          "amount": 6.0
         }
       ],
       "description": "Kochende Wasser mit dem gerösteten Altbrot und dem Salz mischen, mit Klarsichtfolie auf der Oberfläche abdecken und 8 bis 16 Stunden quellen lassen",
@@ -143,15 +145,15 @@
         },
         {
           "id": 1,
-          "amount": 218
+          "amount": 218.0
         },
         {
           "id": 3,
-          "amount": 639
+          "amount": 639.0
         },
         {
           "id": 7,
-          "amount": 85,
+          "amount": 85.0,
           "condition": "70 C°"
         }
       ],
@@ -162,8 +164,8 @@
         "unit": "hours"
       },
       "temperature": {
-        "lower value": "21 C°",
-        "upper value": "21 C°"
+        "lower value": 21,
+        "upper value": 21
       }
     },
     {
@@ -172,7 +174,7 @@
       "ingredients" : [
         {
           "id": 11
-        },
+        }
       ],
       "description": "Den Teig rundwirken und mit Schluss nach unten 45 Minuten im Gärkorb bei Raumtemperatur reifen lassen.",
       "duration": {
@@ -181,7 +183,8 @@
         "unit": "minutes"
       },
       "temperature": {
-        "value": "21 C°"
+        "lower value": 21,
+        "upper value": 21
       }
     },
     {
@@ -190,7 +193,7 @@
       "ingredients" : [
         {
           "id": 12
-        },
+        }
       ],
       "description": "Mit Schluss nach oben ca. 1 Stunde bei 280°C (250°C) fallend auf 210°C mit Dampf backen.",
       "duration": {
@@ -199,8 +202,8 @@
         "unit": "hours"
       },
       "temperature": {
-        "upper value": "280 C°",
-        "lower value": "210 C°"
+        "upper value": 280,
+        "lower value": 210
       }
     }
   ]

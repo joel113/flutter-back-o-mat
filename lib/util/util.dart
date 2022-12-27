@@ -20,11 +20,11 @@ class Util {
     return future.then((value) => dir.list().toList());
   }
 
-  static Future<File> applicationDocumentFile(String name) async {
-    final path = await _applicationDocumentsPath;
-    final file = File('$path/recipes/$name.json');
-    return file.exists().then((value) => (value)
+  static Future<File> applicationDocumentFile(String filename) async {
+    final file = File(filename);
+    final future = file.exists().then((value) => (value)
         ? Future.value(file)
         : Future.error(Exception("File could not be found.")));
+    return future.then((value) => value);
   }
 }

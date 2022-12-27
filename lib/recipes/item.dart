@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../recipe/recipe.dart';
 
 class Item extends StatelessWidget {
-  Item({required this.image, required this.name, required this.description})
+  Item({required this.filename, required this.image, required this.name, required this.description})
       : super(key: ObjectKey(name));
 
+  final String filename;
   final Image image;
   final String name;
   final String? description;
@@ -34,7 +35,7 @@ class Item extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Recipe())
+                  MaterialPageRoute(builder: (context) => BackometRecipe(filename: filename))
               );
             },
           ),
@@ -43,16 +44,16 @@ class Item extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Recipe())
+                  MaterialPageRoute(builder: (context) => BackometRecipe(filename: filename))
               );
             },
           ),
           IconButton(
-            icon: const Icon(Icons.av_timer),
+            icon: const Icon(Icons.not_started_outlined),
             onPressed: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Recipe())
+                  MaterialPageRoute(builder: (context) => BackometRecipe(filename: filename))
               );
             },
           ),

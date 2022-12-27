@@ -48,6 +48,7 @@ class _BackomatRecipesState extends State<BackomatRecipes> {
               final image = Image.file(
                   File("${file.parent.path}/${decodedJson["image"]}"));
               final item = Item(
+                  filename: file.path,
                   image: image,
                   name: decodedJson["name"],
                   description: decodedJson["description"]);

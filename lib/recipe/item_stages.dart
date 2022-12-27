@@ -19,10 +19,22 @@ class ItemStages extends StatelessWidget {
   final List<ItemIngredients> ingredients;
   final String description;
   final ItemDuration duration;
-  final ItemTemperature temperature;
+  final ItemTemperature? temperature;
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement
+    return Container();
   }
+
+  ItemStages.fromJson(Map<String, dynamic> json, {Key? key})
+      : id = json['id'],
+        name = json['name'],
+        ingredients = List<ItemIngredients>.from(json['ingredients']
+            .map<ItemIngredients>((v) => ItemIngredients.fromJson(v))),
+        description = json['description'],
+        duration = ItemDuration.fromJson(json['duration']),
+        temperature = (json['temperature'] != null)
+            ? ItemTemperature.fromJson(json['temperature'])
+            : null,
+        super(key: key);
 }
