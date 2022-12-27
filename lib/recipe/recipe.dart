@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import '../util/util.dart';
 
 class Recipe extends StatelessWidget {
   const Recipe({Key? key}) : super(key: key);
@@ -26,7 +29,9 @@ class Recipe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color color = Theme.of(context).primaryColor;
+    Color color = Theme
+        .of(context)
+        .primaryColor;
 
     Widget titleSection = Container(
       padding: const EdgeInsets.all(32),
@@ -77,9 +82,9 @@ class Recipe extends StatelessWidget {
       padding: EdgeInsets.only(left: 32),
       child: Text(
         'Ein schönes Brot aus Roggen und Dinkel. Durch die Verwendung von Dinkel'
-        'bekommt das Brot einen tollen Geschmack. Ich habe das Brot von Plötzblog'
-        'schon mehrmals gebacken. Das Rezept stammt vom Plötzblog und ist unter'
-        'https://www.ploetzblog.de/2021/05/29/bergkruste-sauerteigbrot-mit-roggen-und-dinkel/ zu finden.',
+            'bekommt das Brot einen tollen Geschmack. Ich habe das Brot von Plötzblog'
+            'schon mehrmals gebacken. Das Rezept stammt vom Plötzblog und ist unter'
+            'https://www.ploetzblog.de/2021/05/29/bergkruste-sauerteigbrot-mit-roggen-und-dinkel/ zu finden.',
         softWrap: true,
       ),
     );
@@ -101,5 +106,12 @@ class Recipe extends StatelessWidget {
             buttonSection,
           ],
         ));
+  }
+
+  void addReceipeFromApplicationDocument(String name) async {
+    await Util.applicationDocumentFile(name).then((file) =>
+        file.readAsString().then((fileString) {
+          final decodedJson = jsonDecode(fileString);
+        }));
   }
 }

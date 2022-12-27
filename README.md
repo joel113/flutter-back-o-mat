@@ -85,6 +85,8 @@ https://stackoverflow.com/questions/50287995/passing-data-to-statefulwidget-and-
 
 https://stackoverflow.com/questions/52048101/how-to-reset-the-base-route-in-my-flutter-app-that-is-pop-any-routes-and-repla
 
+https://stackoverflow.com/questions/15804101/dart-lambda-shortland-function-confusion
+
 # Dart
 
 https://dart.dev/codelabs/dart-cheatsheet

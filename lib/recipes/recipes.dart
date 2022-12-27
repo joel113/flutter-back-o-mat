@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
+import '../util/util.dart';
 import 'item.dart';
 
 class BackomatRecipes extends StatefulWidget {
@@ -38,7 +37,7 @@ class _BackomatRecipesState extends State<BackomatRecipes> {
   }
 
   void addRecipesFromApplicationDocuments() async {
-    await _applicationDocumentFiles.then((fileEntity) => fileEntity
+    await Util.applicationDocumentFiles().then((fileEntity) => fileEntity
         .whereType<File>()
         .where((element) =>
             element.path
@@ -56,21 +55,5 @@ class _BackomatRecipesState extends State<BackomatRecipes> {
                 recipes.add(item);
               });
             })));
-  }
-
-  Future<String> get _applicationDocumentsPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
-
-  Future<List<FileSystemEntity>> get _applicationDocumentFiles async {
-    final path = await _applicationDocumentsPath;
-    final dir = Directory('$path/recipes');
-    final future = dir.exists().then((value) {
-      if (!value) {
-        dir.create();
-      }
-    });
-    return future.then((value) => dir.list().toList());
   }
 }

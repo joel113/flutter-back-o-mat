@@ -60,6 +60,4 @@ class Item extends StatelessWidget {
       ),
     );
   }
-
-  void openMenu() {}
 }
