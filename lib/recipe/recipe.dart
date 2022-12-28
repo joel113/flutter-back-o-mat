@@ -16,6 +16,19 @@ class BackometRecipe extends StatefulWidget {
 class _BackomatRecipe extends State<BackometRecipe> {
   Item? recipe;
 
+  Row _buildTopRow() {
+    return Row(
+      children: [
+        Container(child: recipe),
+        Icon(
+          Icons.star,
+          color: Colors.red[500],
+        ),
+        const Text('41'),
+      ],
+    );
+  }
+
   Column _buildButtonColumn(Color color, IconData icon, String label) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -40,58 +53,51 @@ class _BackomatRecipe extends State<BackometRecipe> {
   @override
   Widget build(BuildContext context) {
     Color color = Theme.of(context).primaryColor;
-    Widget titleSection = Container(
-      padding: const EdgeInsets.all(32),
-      child: Row(
-        children: [
-          Container(child: recipe),
-          Icon(
-            Icons.star,
-            color: Colors.red[500],
-          ),
-          const Text('41'),
-        ],
-      ),
+
+    Widget headerSection = Image.asset(
+      "images/${recipe?.image ?? "20220907-bergkruste.jpg"}",
+      width: double.infinity,
+      height: 240,
+      fit: BoxFit.cover,
     );
 
-    Widget buttonSection = Padding(
-        padding: const EdgeInsets.all(32),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildButtonColumn(color, Icons.not_started, 'Start'),
-            _buildButtonColumn(color, Icons.share, 'Share'),
-          ],
-        ));
+    Widget titleSection = Padding(
+        padding: const EdgeInsets.only(bottom: 16), child: _buildTopRow());
 
-    Widget textSection = const Padding(
-      padding: EdgeInsets.only(left: 32),
-      child: Text(
-        'Ein schönes Brot aus Roggen und Dinkel. Durch die Verwendung von Dinkel'
-        'bekommt das Brot einen tollen Geschmack. Ich habe das Brot von Plötzblog'
-        'schon mehrmals gebacken. Das Rezept stammt vom Plötzblog und ist unter'
-        'https://www.ploetzblog.de/2021/05/29/bergkruste-sauerteigbrot-mit-roggen-und-dinkel/ zu finden.',
-        softWrap: true,
-      ),
+    Widget ingredientsSection = Padding(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const Padding(
+            padding: EdgeInsets.only(bottom: 8),
+            child: Text("Zutaten",
+                textAlign: TextAlign.start,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+          ),
+          recipe?.ingredients ?? const Text("")
+        ]));
+
+    Widget buttonSection = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _buildButtonColumn(color, Icons.not_started, 'Start'),
+        _buildButtonColumn(color, Icons.share, 'Share'),
+      ],
     );
 
     return Scaffold(
         appBar: AppBar(
           title: const Text('Backomat'),
         ),
-        body: ListView(
-          children: [
-            Image.asset(
-              'images/DSC_4302.jpg',
-              width: 600,
-              height: 240,
-              fit: BoxFit.cover,
-            ),
-            titleSection,
-            textSection,
-            buttonSection,
-          ],
-        ));
+        body: SingleChildScrollView(
+            child: Column(children: [
+          headerSection,
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 32, right: 32, top: 16, bottom: 16),
+            child: Column(
+                children: [titleSection, ingredientsSection, buttonSection]),
+          )
+        ])));
   }
 
   @override

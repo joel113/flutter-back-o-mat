@@ -1,30 +1,34 @@
 import 'package:flutter/material.dart';
 
-class ItemIngredients extends StatelessWidget {
-  ItemIngredients({
-    required this.id,
-    required this.amount,
-    required this.unit,
-    required this.condition,
-    this.name,
-  }) : super(key: ObjectKey(id));
+import 'item_ingredient.dart';
 
-  final int id;
-  final String? name;
-  final double? amount;
-  final String? unit;
-  final String? condition;
+class ItemIngredients extends StatelessWidget {
+  const ItemIngredients({Key? key, required this.ingredients})
+      : super(key: key);
+
+  final List<ItemIngredient> ingredients;
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Table(
+      border: const TableBorder(
+        horizontalInside: BorderSide(
+          width: 1,
+          color: Colors.lightBlue,
+          style: BorderStyle.solid,
+        )
+      ),
+      columnWidths: const <int, TableColumnWidth>{
+        0: FixedColumnWidth(128),
+        1: FlexColumnWidth(),
+        2: FlexColumnWidth()
+      },
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      children: [for (var value in ingredients) value.buildRow(context)],
+    );
   }
 
-  ItemIngredients.fromJson(Map<String, dynamic> json, {Key? key})
-      : id = json['id'],
-        name = json['name'],
-        amount = json['amount'],
-        unit = json['unit'],
-        condition = json['condition'],
+  ItemIngredients.fromJson(List<dynamic> json, {Key? key})
+      : ingredients = json.map((e) => ItemIngredient.fromJson(e)).toList(),
         super(key: key);
 }

@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import '../recipe/recipe.dart';
 
 class Item extends StatelessWidget {
-  Item({required this.filename, required this.image, required this.name, required this.description})
+  Item(
+      {required this.filename,
+      required this.image,
+      required this.name,
+      required this.description})
       : super(key: ObjectKey(name));
 
   final String filename;
@@ -14,20 +18,25 @@ class Item extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(16.0),
       child: Row(
         children: <Widget>[
-          Expanded(child: Container(
-              padding: const EdgeInsets.only(right: 10), child: image)),
-          Expanded(flex: 3,
+          Expanded(
+              child: Container(
+                  padding: const EdgeInsets.only(right: 8), child: image)),
+          Expanded(
+              flex: 3,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(name,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                  Text(
+                    name,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   const SizedBox(height: 10),
-                  Text(description!),
+                  Text(description!, style: const TextStyle(fontSize: 16)),
                 ],
               )),
           IconButton(
@@ -35,8 +44,9 @@ class Item extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BackometRecipe(filename: filename))
-              );
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          BackometRecipe(filename: filename)));
             },
           ),
           IconButton(
@@ -44,8 +54,9 @@ class Item extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BackometRecipe(filename: filename))
-              );
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          BackometRecipe(filename: filename)));
             },
           ),
           IconButton(
@@ -53,8 +64,9 @@ class Item extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BackometRecipe(filename: filename))
-              );
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          BackometRecipe(filename: filename)));
             },
           ),
         ],

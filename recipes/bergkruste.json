@@ -5,45 +5,45 @@
   "ingredients": [
     {
       "id": 1,
-      "kind": "Roggenmehl 1150",
+      "name": "Roggenmehl 1150",
       "amount": 293.0,
-      "unit": "gram"
+      "unit": "g"
     },
     {
       "id": 2,
-      "kind": "Dinkelvollkornmehl",
+      "name": "Dinkelvollkornmehl",
       "amount": 150.0,
-      "unit": "gram"
+      "unit": "g"
     },
     {
       "id": 3,
-      "kind": "Dinkelmehl 630",
+      "name": "Dinkelmehl 630",
       "amount": 50.0,
-      "unit": "gram"
+      "unit": "g"
     },
     {
       "id": 4,
-      "kind": "Röstbrot",
+      "name": "Röstbrot",
       "amount": 15.0,
-      "unit": "gram"
+      "unit": "g"
     },
     {
       "id": 5,
-      "kind": "Anstellgut",
+      "name": "Anstellgut",
       "amount": 15.0,
-      "unit": "gram"
+      "unit": "g"
     },
     {
       "id": 6,
-      "kind": "Salz",
+      "name": "Salz",
       "amount": 4.5,
-      "unit": "gram"
+      "unit": "g"
     },
     {
       "id": 7,
-      "kind": "Wasser",
+      "name": "Wasser",
       "amount": 460.0,
-      "unit": "gram"
+      "unit": "g"
     }
   ],
   "stages": [

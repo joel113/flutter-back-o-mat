@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_back_o_mat/recipe/item_ingredients.dart';
 
-import 'item_ingredients.dart';
+import 'item_ingredient.dart';
 import 'item_stages.dart';
 
 class Item extends StatelessWidget {
-  Item({required this.name, required this.ingredients, required this.stages})
+  Item(
+      {required this.image,
+      required this.name,
+      required this.description,
+      required this.ingredients,
+      required this.stages})
       : super(key: ObjectKey(name));
 
+  final String image;
   final String name;
-  final List<ItemIngredients> ingredients;
+  final String description;
+  final ItemIngredients ingredients;
   final List<ItemStages> stages;
 
   @override
@@ -19,17 +27,19 @@ class Item extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.only(bottom: 8),
-            child: const Text(
-              'Bergkruste',
-              style: TextStyle(
+            child: Text(
+              name,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
+                fontSize: 24
               ),
             ),
           ),
           Text(
-            'Sauerteigbrot mit Roggen und Dinkel',
+            description,
             style: TextStyle(
               color: Colors.grey[500],
+              fontSize: 16
             ),
           ),
         ],
@@ -38,9 +48,10 @@ class Item extends StatelessWidget {
   }
 
   Item.fromJson(Map<String, dynamic> json, {Key? key})
-      : name = json['name'],
-        ingredients = List<ItemIngredients>.from(json['ingredients']
-            .map<ItemIngredients>((v) => ItemIngredients.fromJson(v))),
+      : image = json['image'],
+        name = json['name'],
+        description = json['description'],
+        ingredients = ItemIngredients.fromJson(json['ingredients']),
         stages = List<ItemStages>.from(
             json['stages'].map((v) => ItemStages.fromJson(v))),
         super(key: key);
