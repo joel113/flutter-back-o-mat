@@ -139,6 +139,8 @@ https://stackoverflow.com/questions/66041293/how-to-remove-the-outermost-border-
 
 https://stackoverflow.com/questions/49438433/how-to-flatmap-list-in-dart
 
+https://stackoverflow.com/questions/53455358/how-to-present-an-empty-view-in-flutter
+
 # Dart
 
 https://dart.dev/codelabs/dart-cheatsheet

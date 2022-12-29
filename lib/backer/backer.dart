@@ -1,19 +1,19 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import '../recipe/item.dart';
 import '../util/util.dart';
-import 'item.dart';
 
-class BackomatRecipe extends StatefulWidget {
-  const BackomatRecipe({Key? key, required this.filename}) : super(key: key);
+class BackomatBacker extends StatefulWidget {
+  const BackomatBacker({Key? key, required this.filename}) : super(key: key);
 
   final String filename;
 
   @override
-  State<BackomatRecipe> createState() => _BackomatRecipe();
+  State<BackomatBacker> createState() => _BackomatBacker();
 }
 
-class _BackomatRecipe extends State<BackomatRecipe> {
+class _BackomatBacker extends State<BackomatBacker> {
   Item? recipe;
 
   Row _buildTopRow() {
@@ -64,34 +64,19 @@ class _BackomatRecipe extends State<BackomatRecipe> {
     Widget titleSection = Padding(
         padding: const EdgeInsets.only(bottom: 16), child: _buildTopRow());
 
-    Widget ingredientsSection = Padding(
-        padding: const EdgeInsets.only(bottom: 16),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: Text("Zutaten",
-                textAlign: TextAlign.start,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-          ),
-          recipe?.ingredients ?? const Text("")
-        ]));
-
     Widget stagesSection = Padding(
         padding: const EdgeInsets.only(bottom: 16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: Text("Zubereitung",
-                textAlign: TextAlign.start,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-          ),
-          recipe?.stages ?? const Text("")
+          recipe?.stages.buildWithTimer(context) ?? const Text("")
         ]));
 
     Widget buttonSection = Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _buildButtonColumn(color, Icons.not_started, 'Start'),
+        _buildButtonColumn(color, Icons.pause_circle, 'Pause'),
+        _buildButtonColumn(color, Icons.next_plan_outlined, 'Next'),
+        _buildButtonColumn(color, Icons.stop_circle, 'Stop'),
         _buildButtonColumn(color, Icons.share, 'Share'),
       ],
     );
@@ -108,9 +93,8 @@ class _BackomatRecipe extends State<BackomatRecipe> {
                 const EdgeInsets.only(left: 32, right: 32, top: 16, bottom: 16),
             child: Column(children: [
               titleSection,
-              ingredientsSection,
+              buttonSection,
               stagesSection,
-              buttonSection
             ]),
           )
         ])));
@@ -119,10 +103,10 @@ class _BackomatRecipe extends State<BackomatRecipe> {
   @override
   void initState() {
     super.initState();
-    addRecipeFromApplicationDocument(widget.filename);
+    addBackerFromApplicationDocument(widget.filename);
   }
 
-  void addRecipeFromApplicationDocument(String name) async {
+  void addBackerFromApplicationDocument(String name) async {
     await Util.applicationDocumentFile(name)
         .then((file) => file.readAsString().then((fileString) {
               setState(() => recipe = Item.fromJson(jsonDecode(fileString)));

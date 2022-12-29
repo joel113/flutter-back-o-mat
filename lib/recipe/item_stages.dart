@@ -1,40 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_back_o_mat/recipe/item_duration.dart';
-import 'package:flutter_back_o_mat/recipe/item_ingredient.dart';
 
-import 'item_temperature.dart';
+import 'item_stage.dart';
 
 class ItemStages extends StatelessWidget {
-  ItemStages(
-      {required this.id,
-      required this.name,
-      required this.ingredients,
-      required this.description,
-      required this.duration,
-      required this.temperature})
-      : super(key: ObjectKey(id));
+  const ItemStages({Key? key, required this.stages}) : super(key: key);
 
-  final int id;
-  final String name;
-  final List<ItemIngredient> ingredients;
-  final String description;
-  final ItemDuration duration;
-  final ItemTemperature? temperature;
+  final List<ItemStage> stages;
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Table(
+      border: const TableBorder(
+          horizontalInside: BorderSide(
+        width: 1,
+        color: Colors.lightBlue,
+        style: BorderStyle.solid,
+      )),
+      columnWidths: const <int, TableColumnWidth>{
+        0: FixedColumnWidth(128),
+        1: FlexColumnWidth(),
+        2: FixedColumnWidth(156),
+      },
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      children: [for (var value in stages) value.buildRow(context)],
+    );
   }
 
-  ItemStages.fromJson(Map<String, dynamic> json, {Key? key})
-      : id = json['id'],
-        name = json['name'],
-        ingredients = List<ItemIngredient>.from(json['ingredients']
-            .map<ItemIngredient>((v) => ItemIngredient.fromJson(v))),
-        description = json['description'],
-        duration = ItemDuration.fromJson(json['duration']),
-        temperature = (json['temperature'] != null)
-            ? ItemTemperature.fromJson(json['temperature'])
-            : null,
+  Widget buildWithTimer(BuildContext context) {
+    return Table(
+      border: const TableBorder(
+          horizontalInside: BorderSide(
+            width: 1,
+            color: Colors.lightBlue,
+            style: BorderStyle.solid,
+          )),
+      columnWidths: const <int, TableColumnWidth>{
+        0: FixedColumnWidth(128),
+        1: FixedColumnWidth(256),
+        2: FlexColumnWidth()
+      },
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      children: [for (var value in stages) value.buildRowWithTimer(context)],
+    );
+  }
+
+  ItemStages.fromJson(
+      Map<dynamic, dynamic> ingredients, List<dynamic> stages,
+      {Key? key})
+      : stages = stages.map((e) => ItemStage.fromJson(ingredients, e)).toList(),
         super(key: key);
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_back_o_mat/backer/backer.dart';
 
 import '../recipe/recipe.dart';
 
@@ -46,7 +47,7 @@ class Item extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          BackometRecipe(filename: filename)));
+                          BackomatRecipe(filename: filename)));
             },
           ),
           IconButton(
@@ -56,7 +57,7 @@ class Item extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          BackometRecipe(filename: filename)));
+                          BackomatRecipe(filename: filename)));
             },
           ),
           IconButton(
@@ -66,7 +67,7 @@ class Item extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          BackometRecipe(filename: filename)));
+                          BackomatBacker(filename: filename)));
             },
           ),
         ],

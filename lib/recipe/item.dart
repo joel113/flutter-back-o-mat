@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_back_o_mat/recipe/item_ingredients.dart';
 
+import '../util/json.dart';
 import 'item_ingredient.dart';
+import 'item_stage.dart';
 import 'item_stages.dart';
 
 class Item extends StatelessWidget {
@@ -17,7 +19,7 @@ class Item extends StatelessWidget {
   final String name;
   final String description;
   final ItemIngredients ingredients;
-  final List<ItemStages> stages;
+  final ItemStages stages;
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +31,12 @@ class Item extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8),
             child: Text(
               name,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24
-              ),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
           ),
           Text(
             description,
-            style: TextStyle(
-              color: Colors.grey[500],
-              fontSize: 16
-            ),
+            style: TextStyle(color: Colors.grey[500], fontSize: 16),
           ),
         ],
       ),
@@ -52,7 +48,7 @@ class Item extends StatelessWidget {
         name = json['name'],
         description = json['description'],
         ingredients = ItemIngredients.fromJson(json['ingredients']),
-        stages = List<ItemStages>.from(
-            json['stages'].map((v) => ItemStages.fromJson(v))),
+        stages = ItemStages.fromJson(
+            Json.mapify(json['ingredients'], json['stages']), json['stages']),
         super(key: key);
 }

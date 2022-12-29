@@ -26,13 +26,10 @@ class ItemIngredient extends StatelessWidget {
         TableCell(
             child: Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 8),
-                child: Text("$amount $unit"))),
+                child: Text("${(amount != null) ? amount : "gesamt"} ${(unit != null) ? unit : ""} ${(condition != null) ? "zu $condition" : ""}"))),
         TableCell(child: Text("$name")),
       ],
     );
-    if (condition != null) {
-      row.children?.add(TableCell(child: Text("$condition")));
-    }
     return row;
   }
 
