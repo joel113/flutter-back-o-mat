@@ -93,8 +93,9 @@ class _BackomatBacker extends State<BackomatBacker> {
                 const EdgeInsets.only(left: 32, right: 32, top: 16, bottom: 16),
             child: Column(children: [
               titleSection,
-              buttonSection,
               stagesSection,
+              const SizedBox(height: 32),
+              buttonSection,
             ]),
           )
         ])));

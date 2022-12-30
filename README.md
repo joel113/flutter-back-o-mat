@@ -141,6 +141,10 @@ https://stackoverflow.com/questions/49438433/how-to-flatmap-list-in-dart
 
 https://stackoverflow.com/questions/53455358/how-to-present-an-empty-view-in-flutter
 
+https://stackoverflow.com/questions/54610121/flutter-countdown-timer
+
+https://stackoverflow.com/questions/59819494/how-to-set-align-right-in-table-with-flutter
+
 # Dart
 
 https://dart.dev/codelabs/dart-cheatsheet

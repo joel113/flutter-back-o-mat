@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_back_o_mat/recipe/item_duration.dart';
 import 'package:flutter_back_o_mat/recipe/item_ingredients.dart';
 
+import '../backer/stage_date.dart';
+import '../backer/stage_timer.dart';
 import '../util/json.dart';
 import 'item_temperature.dart';
 
@@ -79,13 +81,20 @@ class ItemStage extends StatelessWidget {
                   children: [
                     temperature != null
                         ? Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: temperature!)
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: temperature!)
                         : Container(),
                     duration
                   ],
                 ))),
-        const TableCell(child: Text(""))
+        TableCell(child: StageDate(DateTime.now())),
+        TableCell(
+            child: Padding(
+                padding: const EdgeInsets.only(top: 8, bottom: 8),
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  child: const StageTimer()
+                )))
       ],
     );
     return row;

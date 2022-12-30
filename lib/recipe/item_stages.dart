@@ -35,9 +35,10 @@ class ItemStages extends StatelessWidget {
             style: BorderStyle.solid,
           )),
       columnWidths: const <int, TableColumnWidth>{
-        0: FixedColumnWidth(128),
-        1: FixedColumnWidth(256),
-        2: FlexColumnWidth()
+        0: FixedColumnWidth(156),
+        1: FlexColumnWidth(1),
+        2: FlexColumnWidth(2),
+        3: FixedColumnWidth(192)
       },
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       children: [for (var value in stages) value.buildRowWithTimer(context)],
