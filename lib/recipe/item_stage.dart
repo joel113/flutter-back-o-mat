@@ -87,14 +87,20 @@ class ItemStage extends StatelessWidget {
                     duration
                   ],
                 ))),
-        TableCell(child: StageDate(DateTime.now())),
+        TableCell(
+            child: Padding(
+          padding: const EdgeInsets.only(top: 8, bottom: 8),
+          child: StageDate(
+            DateTime.now(),
+            "foobar"
+          ),
+        )),
         TableCell(
             child: Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 8),
                 child: Container(
-                  alignment: Alignment.centerRight,
-                  child: const StageTimer()
-                )))
+                    alignment: Alignment.centerRight,
+                    child: const StageTimer())))
       ],
     );
     return row;
