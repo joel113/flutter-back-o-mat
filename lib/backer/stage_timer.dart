@@ -1,20 +1,25 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_back_o_mat/recipe/item_duration.dart';
 
 class StageTimer extends StatefulWidget {
-  const StageTimer({Key? key}) : super(key: key);
+  const StageTimer(this.itemDuration, {Key? key}) : super(key: key);
+
+  final ItemDuration itemDuration;
 
   @override
   State<StageTimer> createState() => _StageTimer();
 }
 
 class _StageTimer extends State<StageTimer> {
+
   Timer? timer;
   Duration duration = const Duration();
 
   @override
   Widget build(BuildContext context) {
+    duration = widget.itemDuration.upperValue;
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final hours = twoDigits(duration.inHours);
     final minutes = twoDigits(duration.inMinutes.remainder(60));

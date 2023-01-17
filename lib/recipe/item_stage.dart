@@ -66,7 +66,7 @@ class ItemStage extends StatelessWidget {
     return row;
   }
 
-  TableRow buildRowWithTimer(BuildContext context) {
+  TableRow buildRowWithTimer(BuildContext context, List<ItemStage> stages) {
     var row = TableRow(
       children: [
         TableCell(
@@ -91,8 +91,7 @@ class ItemStage extends StatelessWidget {
             child: Padding(
           padding: const EdgeInsets.only(top: 8, bottom: 8),
           child: StageDate(
-            DateTime.now(),
-            "foobar"
+            calculateStartTime(ingredients, stages)
           ),
         )),
         TableCell(
@@ -100,10 +99,15 @@ class ItemStage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 8, bottom: 8),
                 child: Container(
                     alignment: Alignment.centerRight,
-                    child: const StageTimer())))
+                    child: StageTimer(duration))))
       ],
     );
     return row;
+  }
+
+  DateTime calculateStartTime(ItemIngredients ingredients, List<ItemStage> stages) {
+    // TODO: impelemtn
+    return DateTime.now();
   }
 
   ItemStage.fromJson(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class StageDate extends StatefulWidget {
-  const StageDate(DateTime dateTime, String s, {super.key, this.restorationId});
+  const StageDate(DateTime dateTime, {super.key, this.restorationId});
 
   final String? restorationId;
 
@@ -10,32 +11,30 @@ class StageDate extends StatefulWidget {
 }
 
 class _StageDate extends State<StageDate> with RestorationMixin {
-
   @override
   String? get restorationId => widget.restorationId;
 
-  final RestorableDateTime _selectedDate =
-      RestorableDateTime(DateTime.now());
+  final RestorableDateTime _selectedDate = RestorableDateTime(DateTime.now());
 
   late final RestorableRouteFuture<DateTime?> _restorableRouteFutureDate =
       RestorableRouteFuture<DateTime?>(
-        onComplete: _selectDate,
+          onComplete: _selectDate,
           onPresent: (NavigatorState navigator, Object? arguments) {
-    return navigator.restorablePush(
-      _datePickerRoute,
-      arguments: _selectedDate.value.millisecondsSinceEpoch,
-    );
-  });
+            return navigator.restorablePush(
+              _datePickerRoute,
+              arguments: _selectedDate.value.millisecondsSinceEpoch,
+            );
+          });
 
   late final RestorableRouteFuture<DateTime?> _restorableRouteFutureTime =
-  RestorableRouteFuture<DateTime?>(
-      onComplete: _selectTime,
-      onPresent: (NavigatorState navigator, Object? arguments) {
-        return navigator.restorablePush(
-          _timePickerRoute,
-          arguments: _selectedDate.value.millisecondsSinceEpoch,
-        );
-      });
+      RestorableRouteFuture<DateTime?>(
+          onComplete: _selectTime,
+          onPresent: (NavigatorState navigator, Object? arguments) {
+            return navigator.restorablePush(
+              _timePickerRoute,
+              arguments: _selectedDate.value.millisecondsSinceEpoch,
+            );
+          });
 
   static Route<DateTime> _datePickerRoute(
     BuildContext context,
@@ -56,14 +55,15 @@ class _StageDate extends State<StageDate> with RestorationMixin {
   }
 
   static Route<DateTime> _timePickerRoute(
-      BuildContext context,
-      Object? arguments,
-      ) {
+    BuildContext context,
+    Object? arguments,
+  ) {
     return DialogRoute<DateTime>(
       context: context,
       builder: (BuildContext context) {
         return TimePickerDialog(
-          restorationId: 'time_picker_dialog', initialTime: TimeOfDay.now(),
+          restorationId: 'time_picker_dialog',
+          initialTime: TimeOfDay.now(),
         );
       },
     );
@@ -81,7 +81,7 @@ class _StageDate extends State<StageDate> with RestorationMixin {
                 color: Colors.lightBlue[100],
                 borderRadius: BorderRadius.circular(20)),
             child: Text(
-              "${_selectedDate.value.day}.${_selectedDate.value.month}.${_selectedDate.value.year}", //"Fr. 30. Dez. 08:02",
+              "${DateFormat("EE").format(_selectedDate.value)}. ${_selectedDate.value.day}. ${DateFormat("MMM").format(_selectedDate.value)}. ${_selectedDate.value.year}",
               style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
@@ -138,5 +138,4 @@ class _StageDate extends State<StageDate> with RestorationMixin {
       });
     }
   }
-
 }

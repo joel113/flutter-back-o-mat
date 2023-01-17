@@ -41,7 +41,7 @@ class ItemStages extends StatelessWidget {
         3: FixedColumnWidth(192)
       },
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      children: [for (var value in stages) value.buildRowWithTimer(context)],
+      children: [for (var value in stages) value.buildRowWithTimer(context, stages)],
     );
   }
 
