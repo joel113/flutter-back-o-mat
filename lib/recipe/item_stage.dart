@@ -8,13 +8,12 @@ import '../util/json.dart';
 import 'item_temperature.dart';
 
 class ItemStage extends StatelessWidget {
-  ItemStage(
-      {required this.id,
-      required this.name,
-      required this.ingredients,
-      required this.description,
-      required this.duration,
-      required this.temperature})
+  ItemStage({required this.id,
+    required this.name,
+    required this.ingredients,
+    required this.description,
+    required this.duration,
+    required this.temperature})
       : super(key: ObjectKey(id));
 
   final int id;
@@ -23,6 +22,7 @@ class ItemStage extends StatelessWidget {
   final String description;
   final ItemDuration duration;
   final ItemTemperature? temperature;
+  DateTime? startTime;
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +55,8 @@ class ItemStage extends StatelessWidget {
                   children: [
                     temperature != null
                         ? Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: temperature!)
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: temperature!)
                         : Container(),
                     duration
                   ],
@@ -81,19 +81,19 @@ class ItemStage extends StatelessWidget {
                   children: [
                     temperature != null
                         ? Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: temperature!)
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: temperature!)
                         : Container(),
                     duration
                   ],
                 ))),
         TableCell(
             child: Padding(
-          padding: const EdgeInsets.only(top: 8, bottom: 8),
-          child: StageDate(
-            calculateStartTime(ingredients, stages)
-          ),
-        )),
+              padding: const EdgeInsets.only(top: 8, bottom: 8),
+              child: StageDate(
+                  calculateStartTime(ingredients, stages)
+              ),
+            )),
         TableCell(
             child: Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 8),
@@ -105,13 +105,24 @@ class ItemStage extends StatelessWidget {
     return row;
   }
 
-  DateTime calculateStartTime(ItemIngredients ingredients, List<ItemStage> stages) {
-    // TODO: impelemtn
-    return DateTime.now();
+  DateTime calculateStartTime(ItemIngredients ingredients,
+      List<ItemStage> stages) {
+    DateTime startTime = DateTime.now();
+    for (ItemStage stage in stages) {
+      if (ingredients.ingredients.containsKey(stage.id)) {
+        // Recursive computation of the start time with complexity O(n^2)
+        DateTime stageStartTime = calculateStartTime(stage.ingredients, stages);
+        int newStartTime = stageStartTime.millisecondsSinceEpoch + stage.duration.lowerValue.inMilliseconds;
+        if(newStartTime > startTime.millisecondsSinceEpoch) {
+          startTime = DateTime.fromMillisecondsSinceEpoch(newStartTime);
+        }
+      }
+    }
+    return startTime;
   }
 
-  ItemStage.fromJson(
-      Map<dynamic, dynamic> ingredients, Map<String, dynamic> json,
+  ItemStage.fromJson(Map<dynamic, dynamic> ingredients,
+      Map<String, dynamic> json,
       {Key? key})
       : id = json['id'],
         name = json['name'],

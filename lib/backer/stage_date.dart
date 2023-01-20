@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class StageDate extends StatefulWidget {
-  const StageDate(DateTime dateTime, {super.key, this.restorationId});
+  const StageDate(this.dateTime, {super.key, this.restorationId});
 
+  final DateTime dateTime;
   final String? restorationId;
 
   @override
@@ -14,7 +15,7 @@ class _StageDate extends State<StageDate> with RestorationMixin {
   @override
   String? get restorationId => widget.restorationId;
 
-  final RestorableDateTime _selectedDate = RestorableDateTime(DateTime.now());
+  late final RestorableDateTime _selectedDate = RestorableDateTime(widget.dateTime);
 
   late final RestorableRouteFuture<DateTime?> _restorableRouteFutureDate =
       RestorableRouteFuture<DateTime?>(
