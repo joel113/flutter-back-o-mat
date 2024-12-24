@@ -145,6 +145,12 @@ https://stackoverflow.com/questions/54610121/flutter-countdown-timer
 
 https://stackoverflow.com/questions/59819494/how-to-set-align-right-in-table-with-flutter
 
+https://stackoverflow.com/questions/53824755/flutter-dart-how-to-access-a-single-entry-in-a-map-object
+
+https://stackoverflow.com/questions/64092241/the-instance-member-widget-cant-be-accessed-in-an-initializer
+
+https://stackoverflow.com/questions/29182581/global-variables-in-dart
+
 # Dart
 
 https://dart.dev/codelabs/dart-cheatsheet
