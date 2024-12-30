@@ -87,7 +87,7 @@ class _StageDate extends State<StageDate> with RestorationMixin {
               style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
-                  fontSize: 24),
+                  fontSize: 18),
             ),
           ),
           onPressed: () {
@@ -101,11 +101,11 @@ class _StageDate extends State<StageDate> with RestorationMixin {
                 color: Colors.lightBlue[100],
                 borderRadius: BorderRadius.circular(20)),
             child: Text(
-              "${_selectedDate.value.hour}:${_selectedDate.value.minute}",
+              "${DateFormat("HH").format(_selectedDate.value)}:${DateFormat("MM").format(_selectedDate.value)}",
               style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
-                  fontSize: 24),
+                  fontSize: 18),
             ),
           ),
           onPressed: () {

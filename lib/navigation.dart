@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_back_o_mat/planner/planner.dart';
 import 'package:flutter_back_o_mat/recipes/recipes.dart';
 
@@ -38,18 +39,18 @@ class _BackomatNavigationState extends State<BackomatNavigation> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'Rezepte',
+            icon: const Icon(Icons.book),
+            label: AppLocalizations.of(context)?.recipes,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.lock_clock),
-            label: 'Planer',
+            icon: const Icon(Icons.lock_clock),
+            label: AppLocalizations.of(context)?.planer,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.info),
-            label: 'Info',
+            icon: const Icon(Icons.info),
+            label: AppLocalizations.of(context)?.info,
           ),
         ],
         currentIndex: _selectedIndex,

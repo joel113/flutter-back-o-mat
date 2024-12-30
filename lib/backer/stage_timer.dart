@@ -76,7 +76,7 @@ class _StageTimer extends State<StageTimer> with RestorationMixin {
                 style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
-                    fontSize: 24),
+                    fontSize: 18),
               ),
             ),
           )
