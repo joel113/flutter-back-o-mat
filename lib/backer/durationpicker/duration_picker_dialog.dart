@@ -113,7 +113,7 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
               minutes: _currentMinutes,
               seconds: _currentSeconds,
             );
-            Navigator.of(context).pop(duration);
+            Navigator.of(context).pop(duration.inSeconds);
           },
           child: Text(widget.confirmButtonText != null ? widget.confirmButtonText! : "Confirm"),
         ),

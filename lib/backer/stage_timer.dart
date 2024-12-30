@@ -15,41 +15,26 @@ class StageTimer extends StatefulWidget {
 
 class _StageTimer extends State<StageTimer> with RestorationMixin {
   Timer? timer;
+
   Duration duration = const Duration();
 
   @override
   String get restorationId => 'home';
 
-  late final RestorableInt _newDuration = RestorableInt(0);
+  @override
+  void initState() {
+    super.initState();
+    duration = widget.itemDuration.lowerValue;
+  }
 
-  late final RestorableRouteFuture<int?> _restorableRouteFutureDuration =
-      RestorableRouteFuture<int?>(
-          onPresent: (NavigatorState navigator, Object? arguments) {
-            return navigator.restorablePush(
-              _durationPickerRoute,
-              arguments: _newDuration.value,
-            );
-          },
-          onComplete: _selectDuration);
-
-  static Route<int> _durationPickerRoute(
-    BuildContext context,
-    Object? arguments,
-  ) {
-    return DialogRoute<int>(
-        context: context,
-        builder: (BuildContext context) {
-          return const DurationPickerDialog(
-              initialDuration: Duration.zero,
-              title: "Change duration",
-              confirmButtonText: "Ok",
-              cancelButtonText: "Cancel");
-        });
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(
+        _restorableRouteFutureDuration, 'restorable_route_future');
   }
 
   @override
   Widget build(BuildContext context) {
-    duration = widget.itemDuration.lowerValue;
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final hours = twoDigits(duration.inHours);
     final minutes = twoDigits(duration.inMinutes.remainder(60));
@@ -79,7 +64,7 @@ class _StageTimer extends State<StageTimer> with RestorationMixin {
         children: [
           TextButton(
             onPressed: () {
-              _restorableRouteFutureDuration.present();
+              _restorableRouteFutureDuration.present(duration.inSeconds);
             },
             child: Container(
               padding: const EdgeInsets.all(8),
@@ -98,17 +83,35 @@ class _StageTimer extends State<StageTimer> with RestorationMixin {
         ],
       );
 
-  @override
-  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
-    registerForRestoration(_newDuration, 'new_duration');
-    registerForRestoration(
-        _restorableRouteFutureDuration, 'restorable_route_future');
+  late final RestorableRouteFuture<int?> _restorableRouteFutureDuration =
+      RestorableRouteFuture<int?>(
+          onPresent: (NavigatorState navigator, Object? arguments) {
+            return navigator.restorablePush(
+              _durationPickerRoute,
+              arguments: arguments, // _newDuration.value,
+            );
+          },
+          onComplete: _updateDuration);
+
+  static Route<int> _durationPickerRoute(
+    BuildContext context,
+    Object? arguments,
+  ) {
+    return DialogRoute<int>(
+        context: context,
+        builder: (BuildContext context) {
+          return DurationPickerDialog(
+              initialDuration: Duration(seconds: arguments as int),
+              title: "Change duration",
+              confirmButtonText: "Ok",
+              cancelButtonText: "Cancel");
+        });
   }
 
-  void _selectDuration(int? newDuration) {
+  void _updateDuration(int? newDuration) {
     if (newDuration != null) {
       setState(() {
-        _newDuration.value = newDuration;
+        duration = Duration(seconds: newDuration);
       });
     }
   }
