@@ -1,5 +1,7 @@
 {
+  "title": "Backomat",
   "recipes": "Rezepte",
   "planer": "Planer",
-  "info": "Info"
+  "info": "Info",
+  "durationPickerTitle": "Dauer auswählen"
 }

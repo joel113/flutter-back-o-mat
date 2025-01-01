@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/services.dart';
 
 class DurationPickerDialog extends StatefulWidget {
@@ -8,12 +9,12 @@ class DurationPickerDialog extends StatefulWidget {
   final String? cancelButtonText;
 
   const DurationPickerDialog({
-    Key? key,
+    super.key,
     this.initialDuration = Duration.zero,
     this.title,
     this.confirmButtonText,
     this.cancelButtonText,
-  }) : super(key: key);
+  });
 
   @override
   State<DurationPickerDialog> createState() => _DurationPickerDialogState();
@@ -59,7 +60,7 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: widget.title != null ? Text(widget.title!) : const Text("Select Duration"),
+      title: widget.title != null ? Text(widget.title!) : Text(AppLocalizations.of(context)!.durationPickerTitle),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -91,12 +92,6 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 16),
-            child: Text(
-                "Selected duration: $_currentHours hours, $_currentMinutes minutes, $_currentSeconds seconds",
-                style: const TextStyle(fontSize: 16)),
-          )
         ],
       ),
       actions: [

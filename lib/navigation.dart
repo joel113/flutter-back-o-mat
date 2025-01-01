@@ -33,7 +33,7 @@ class _BackomatNavigationState extends State<BackomatNavigation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Backomat'),
+        title: Text(AppLocalizations.of(context)!.title),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),

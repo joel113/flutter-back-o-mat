@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class StageDate extends StatefulWidget {
-  const StageDate(this.dateTime, {super.key, this.restorationId});
+  const StageDate(this.dateTime, {super.key});
 
   final DateTime dateTime;
-  final String? restorationId;
 
   @override
   State<StageDate> createState() => _StageDate();
@@ -14,9 +13,44 @@ class StageDate extends StatefulWidget {
 class _StageDate extends State<StageDate> with RestorationMixin {
 
   @override
-  String? get restorationId => widget.restorationId;
+  String get restorationId => 'stage_date';
 
-  late final RestorableDateTime _selectedDate = RestorableDateTime(widget.dateTime);
+  late final RestorableDateTime dateTime = RestorableDateTime(widget.dateTime);
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(dateTime, 'dateTime');
+    registerForRestoration(
+        _restorableRouteFutureDate, 'date_picker_route_future');
+    registerForRestoration(
+        _restorableRouteFutureTime, 'time_picker_route_future');
+  }
+
+  void _selectDate(DateTime? newDate) {
+    if (newDate != null) {
+      setState(() {
+        dateTime.value = DateTime(
+            newDate.year,
+            newDate.month,
+            newDate.day,
+            dateTime.value.hour,
+            dateTime.value.minute);
+      });
+    }
+  }
+
+  void _selectTime(TimeOfDay? newTime) {
+    if (newTime != null) {
+      setState(() {
+        dateTime.value = DateTime(
+            dateTime.value.year,
+            dateTime.value.month,
+            dateTime.value.day,
+            newTime.hour,
+            newTime.minute);
+      });
+    }
+  }
 
   late final RestorableRouteFuture<DateTime?> _restorableRouteFutureDate =
       RestorableRouteFuture<DateTime?>(
@@ -24,17 +58,17 @@ class _StageDate extends State<StageDate> with RestorationMixin {
           onPresent: (NavigatorState navigator, Object? arguments) {
             return navigator.restorablePush(
               _datePickerRoute,
-              arguments: _selectedDate.value.millisecondsSinceEpoch,
+              arguments: dateTime.value.millisecondsSinceEpoch,
             );
           });
 
-  late final RestorableRouteFuture<DateTime?> _restorableRouteFutureTime =
-      RestorableRouteFuture<DateTime?>(
+  late final RestorableRouteFuture<TimeOfDay?> _restorableRouteFutureTime =
+      RestorableRouteFuture<TimeOfDay?>(
           onComplete: _selectTime,
           onPresent: (NavigatorState navigator, Object? arguments) {
             return navigator.restorablePush(
               _timePickerRoute,
-              arguments: _selectedDate.value.millisecondsSinceEpoch,
+              arguments: dateTime.value.millisecondsSinceEpoch,
             );
           });
 
@@ -56,11 +90,11 @@ class _StageDate extends State<StageDate> with RestorationMixin {
     );
   }
 
-  static Route<DateTime> _timePickerRoute(
+  static Route<TimeOfDay> _timePickerRoute(
     BuildContext context,
     Object? arguments,
   ) {
-    return DialogRoute<DateTime>(
+    return DialogRoute<TimeOfDay>(
       context: context,
       builder: (BuildContext context) {
         return TimePickerDialog(
@@ -83,7 +117,7 @@ class _StageDate extends State<StageDate> with RestorationMixin {
                 color: Colors.lightBlue[100],
                 borderRadius: BorderRadius.circular(20)),
             child: Text(
-              "${DateFormat("EE").format(_selectedDate.value)}. ${_selectedDate.value.day}. ${DateFormat("MMM").format(_selectedDate.value)}. ${_selectedDate.value.year}",
+              "${DateFormat("EE").format(dateTime.value)}. ${dateTime.value.day}. ${DateFormat("MMM").format(dateTime.value)}. ${dateTime.value.year}",
               style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
@@ -101,7 +135,7 @@ class _StageDate extends State<StageDate> with RestorationMixin {
                 color: Colors.lightBlue[100],
                 borderRadius: BorderRadius.circular(20)),
             child: Text(
-              "${DateFormat("HH").format(_selectedDate.value)}:${DateFormat("MM").format(_selectedDate.value)}",
+              "${DateFormat("HH").format(dateTime.value)}:${DateFormat("mm").format(dateTime.value)}",
               style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
@@ -114,30 +148,5 @@ class _StageDate extends State<StageDate> with RestorationMixin {
         )
       ],
     );
-  }
-
-  @override
-  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
-    registerForRestoration(_selectedDate, 'selected_date');
-    registerForRestoration(
-        _restorableRouteFutureDate, 'date_picker_route_future');
-    registerForRestoration(
-        _restorableRouteFutureTime, 'time_picker_route_future');
-  }
-
-  void _selectDate(DateTime? newSelectedDate) {
-    if (newSelectedDate != null) {
-      setState(() {
-        _selectedDate.value = newSelectedDate;
-      });
-    }
-  }
-
-  void _selectTime(DateTime? newSelectedTime) {
-    if (newSelectedTime != null) {
-      setState(() {
-        _selectedDate.value = newSelectedTime;
-      });
-    }
   }
 }

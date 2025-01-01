@@ -4,8 +4,7 @@ import '../util/dura.dart';
 
 class ItemDuration extends StatelessWidget {
   const ItemDuration(
-      {Key? key, required this.lowerValue, required this.upperValue})
-      : super(key: key);
+      {super.key, required this.lowerValue, required this.upperValue});
 
   final Duration lowerValue;
   final Duration upperValue;

@@ -5,7 +5,7 @@ import '../recipe/item.dart';
 import '../util/util.dart';
 
 class BackomatBacker extends StatefulWidget {
-  const BackomatBacker({Key? key, required this.filename}) : super(key: key);
+  const BackomatBacker({super.key, required this.filename});
 
   final String filename;
 
