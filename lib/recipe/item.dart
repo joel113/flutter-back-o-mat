@@ -43,12 +43,12 @@ class Item extends StatelessWidget {
     );
   }
 
-  Item.fromJson(Map<String, dynamic> json, {Key? key})
+  Item.fromJson(Map<String, dynamic> json, {super.key, showTimer = false})
       : image = json['image'],
         name = json['name'],
         description = json['description'],
         ingredients = ItemIngredients.fromJson(json['ingredients']),
         stages = ItemStages.fromJson(
-            Json.mapify(json['ingredients'], json['stages']), json['stages']),
-        super(key: key);
+            Json.mapify(json['ingredients'], json['stages']), json['stages'],
+            showTimer: showTimer);
 }

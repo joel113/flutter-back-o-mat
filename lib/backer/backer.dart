@@ -66,9 +66,9 @@ class _BackomatBacker extends State<BackomatBacker> {
 
     Widget stagesSection = Padding(
         padding: const EdgeInsets.only(bottom: 16),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          recipe?.stages.buildWithTimer(context) ?? const Text("")
-        ]));
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [recipe?.stages ?? const Text("")]));
 
     Widget buttonSection = Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -110,7 +110,8 @@ class _BackomatBacker extends State<BackomatBacker> {
   void addBackerFromApplicationDocument(String name) async {
     await Util.applicationDocumentFile(name)
         .then((file) => file.readAsString().then((fileString) {
-              setState(() => recipe = Item.fromJson(jsonDecode(fileString)));
+              setState(() => recipe =
+                  Item.fromJson(jsonDecode(fileString), showTimer: true));
             }));
   }
 }

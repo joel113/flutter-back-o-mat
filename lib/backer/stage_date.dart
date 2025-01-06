@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class StageDate extends StatefulWidget {
-  const StageDate(this.dateTime, {super.key});
+  const StageDate({super.key, required this.initialDateTime});
 
-  final DateTime dateTime;
+  final DateTime initialDateTime;
 
   @override
   State<StageDate> createState() => _StageDate();
@@ -15,7 +15,7 @@ class _StageDate extends State<StageDate> with RestorationMixin {
   @override
   String get restorationId => 'stage_date';
 
-  late final RestorableDateTime dateTime = RestorableDateTime(widget.dateTime);
+  late final RestorableDateTime dateTime = RestorableDateTime(widget.initialDateTime);
 
   @override
   void restoreState(RestorationBucket? oldBucket, bool initialRestore) {

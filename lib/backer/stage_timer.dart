@@ -6,9 +6,9 @@ import 'package:flutter_back_o_mat/recipe/item_duration.dart';
 import 'package:flutter_back_o_mat/util/restorable_duration.dart';
 
 class StageTimer extends StatefulWidget {
-  const StageTimer(this.itemDuration, {super.key});
+  const StageTimer({super.key, required this.initialItemDuration});
 
-  final ItemDuration itemDuration;
+  final ItemDuration initialItemDuration;
 
   @override
   State<StageTimer> createState() => _StageTimer();
@@ -21,7 +21,7 @@ class _StageTimer extends State<StageTimer> with RestorationMixin {
   String get restorationId => 'home';
 
   late final RestorableDuration _selectedDuration =
-      RestorableDuration(widget.itemDuration.lowerValue);
+      RestorableDuration(widget.initialItemDuration.initialLowerValue);
 
   @override
   void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
