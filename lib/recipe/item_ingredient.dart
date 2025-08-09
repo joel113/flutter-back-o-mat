@@ -33,11 +33,10 @@ class ItemIngredient extends StatelessWidget {
     return row;
   }
 
-  ItemIngredient.fromJson(Map<String, dynamic> json, {Key? key})
+  ItemIngredient.fromJson(Map<String, dynamic> json, {super.key})
       : id = json['id'],
         name = json['name'],
         amount = json['amount'],
         unit = json['unit'],
-        condition = json['condition'],
-        super(key: key);
+        condition = json['condition'];
 }

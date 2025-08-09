@@ -6,7 +6,7 @@ import 'navigation.dart';
 void main() => runApp(const Backomat());
 
 class Backomat extends StatelessWidget {
-  const Backomat({Key? key}) : super(key: key);
+  const Backomat({super.key});
 
   @override
   Widget build(BuildContext context) {

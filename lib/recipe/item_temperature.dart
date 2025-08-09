@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ItemTemperature extends StatelessWidget {
-  const ItemTemperature({Key? key, required this.lowerValue, required this.upperValue}) : super(key: key);
+  const ItemTemperature({super.key, required this.lowerValue, required this.upperValue});
 
   final int lowerValue;
   final int upperValue;
@@ -16,7 +16,7 @@ class ItemTemperature extends StatelessWidget {
     }
   }
 
-  ItemTemperature.fromJson(Map<String, dynamic> json, {Key? key})
+  ItemTemperature.fromJson(Map<String, dynamic> json, {super.key})
       : lowerValue = json['lower value'],
-        upperValue = json['upper value'], super(key: key);
+        upperValue = json['upper value'];
 }

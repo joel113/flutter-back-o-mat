@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'item_ingredient.dart';
 
 class ItemIngredients extends StatelessWidget {
-  const ItemIngredients({Key? key, required this.ingredients})
-      : super(key: key);
+  const ItemIngredients({super.key, required this.ingredients});
 
   final Map<int, ItemIngredient> ingredients;
 
@@ -29,11 +28,10 @@ class ItemIngredients extends StatelessWidget {
     );
   }
 
-  ItemIngredients.fromJson(List<dynamic> json, {Key? key})
+  ItemIngredients.fromJson(List<dynamic> json, {super.key})
       : ingredients = json
             .map((e) => ItemIngredient.fromJson(e))
             .map((e) => {e.id: e})
             .fold(<int, ItemIngredient>{},
-                (previousValue, element) => {...previousValue, ...element}),
-        super(key: key);
+                (previousValue, element) => {...previousValue, ...element});
 }
