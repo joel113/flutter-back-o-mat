@@ -5,7 +5,7 @@ import '../util/util.dart';
 import 'item.dart';
 
 class BackomatRecipes extends StatefulWidget {
-  const BackomatRecipes({Key? key}) : super(key: key);
+  const BackomatRecipes({super.key});
 
   @override
   State<BackomatRecipes> createState() => _BackomatRecipesState();

@@ -3,7 +3,6 @@ import 'package:flutter_back_o_mat/recipe/item_ingredients.dart';
 
 import '../util/json.dart';
 import 'item_ingredient.dart';
-import 'item_stage.dart';
 import 'item_stages.dart';
 
 class Item extends StatelessWidget {

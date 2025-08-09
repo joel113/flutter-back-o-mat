@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'item.dart';
 
 class BackomatPlanner extends StatefulWidget {
-  const BackomatPlanner({Key? key}) : super(key: key);
+  const BackomatPlanner({super.key});
 
   @override
   State<BackomatPlanner> createState() => _BackomatPlannerState();

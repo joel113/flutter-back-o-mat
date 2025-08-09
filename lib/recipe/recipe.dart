@@ -5,7 +5,7 @@ import '../util/util.dart';
 import 'item.dart';
 
 class BackomatRecipe extends StatefulWidget {
-  const BackomatRecipe({Key? key, required this.filename}) : super(key: key);
+  const BackomatRecipe({super.key, required this.filename});
 
   final String filename;
 
@@ -106,7 +106,7 @@ class _BackomatRecipe extends State<BackomatRecipe> {
           Padding(
             padding:
                 const EdgeInsets.only(left: 32, right: 32, top: 16, bottom: 16),
-            child: Column(children: [
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               titleSection,
               ingredientsSection,
               stagesSection,
