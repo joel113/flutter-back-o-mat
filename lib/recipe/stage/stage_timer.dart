@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_back_o_mat/backer/durationpicker/duration_picker_dialog.dart';
-import 'package:flutter_back_o_mat/recipe/item_duration.dart';
+import 'package:flutter_back_o_mat/recipe/item/item_duration.dart';
 import 'package:flutter_back_o_mat/util/restorable_duration.dart';
+
+import '../item/durationpicker/duration_picker_dialog.dart';
 
 class StageTimer extends StatefulWidget {
   const StageTimer({super.key, required this.initialItemDuration});

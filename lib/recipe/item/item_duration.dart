@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../util/dura.dart';
-import '../util/restorable_duration.dart';
+import '../../util/dura.dart';
+import '../../util/restorable_duration.dart';
 
 class ItemDuration extends StatefulWidget {
   const ItemDuration(

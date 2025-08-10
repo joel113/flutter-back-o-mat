@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_back_o_mat/recipe/item_duration.dart';
-import 'package:flutter_back_o_mat/recipe/item_ingredients.dart';
-import 'package:flutter_back_o_mat/recipe/item_temperature.dart';
+import 'package:flutter_back_o_mat/recipe/item/item_duration.dart';
+import 'package:flutter_back_o_mat/recipe/item/item_ingredients.dart';
+import 'package:flutter_back_o_mat/recipe/item/item_temperature.dart';
+import 'package:flutter_back_o_mat/recipe/stage/stage_date.dart';
+import 'package:flutter_back_o_mat/recipe/stage/stage_timer.dart';
 import 'package:flutter_back_o_mat/util/json.dart';
-import '../backer/stage_date.dart';
-import '../backer/stage_timer.dart';
 
 class ItemStage {
   const ItemStage({
@@ -219,7 +219,6 @@ class ItemStages extends StatelessWidget {
         stages: parsedStages, // Passing the full list of stages here
         showTimer: stage.showTimer
     )).toList(growable: false);
-
 
     return ItemStages(stages: finalStages, showTimer: showTimer);
   }

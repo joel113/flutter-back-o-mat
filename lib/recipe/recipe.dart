@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'item.dart';
+import 'item/item.dart';
 import '../util/util.dart';
 import '../util/db/db.dart';
 
@@ -127,7 +127,7 @@ class _BackomatRecipe extends State<BackomatRecipe> {
   void addBackerFromDatabase(int id) async {
     await dbHelper.getRecipeJsonById(id).then((entry) {
       setState(() {
-        recipe = Item.fromJson(jsonDecode(entry!.jsonData), showTimer: true);
+        recipe = Item.fromJson(jsonDecode(entry!.jsonData), showTimer: false);
       });
     });
   }
