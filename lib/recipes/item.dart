@@ -5,13 +5,13 @@ import '../recipe/recipe.dart';
 
 class Item extends StatelessWidget {
   Item(
-      {required this.filename,
+      {required this.id,
       required this.image,
       required this.name,
       required this.description})
       : super(key: ObjectKey(name));
 
-  final String filename;
+  final int id;
   final Image image;
   final String name;
   final String? description;
@@ -47,7 +47,7 @@ class Item extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          BackomatRecipe(filename: filename)));
+                          BackomatRecipe(id: id)));
             },
           ),
           IconButton(
@@ -57,7 +57,7 @@ class Item extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          BackomatRecipe(filename: filename)));
+                          BackomatRecipe(id: id)));
             },
           ),
           IconButton(
@@ -67,7 +67,7 @@ class Item extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          BackomatBacker(filename: filename)));
+                          BackomatBacker(id: id)));
             },
           ),
         ],

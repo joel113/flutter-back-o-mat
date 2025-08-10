@@ -11,7 +11,7 @@ class Util {
 
   static Future<List<FileSystemEntity>> applicationDocumentFiles() async {
     final path = await _applicationDocumentsPath;
-    final dir = Directory('$path/recipes');
+    final dir = Directory('$path/assets/recipes');
     final future = dir.exists().then((value) {
       if (!value) {
         dir.create();

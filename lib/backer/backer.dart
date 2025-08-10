@@ -3,17 +3,19 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../recipe/item.dart';
 import '../util/util.dart';
+import '../util/db/db.dart';
 
 class BackomatBacker extends StatefulWidget {
-  const BackomatBacker({super.key, required this.filename});
+  const BackomatBacker({super.key, required this.id});
 
-  final String filename;
+  final int id;
 
   @override
   State<BackomatBacker> createState() => _BackomatBacker();
 }
 
 class _BackomatBacker extends State<BackomatBacker> {
+  final dbHelper = DatabaseHelperJson();
   Item? recipe;
 
   Row _buildTopRow() {
@@ -55,7 +57,7 @@ class _BackomatBacker extends State<BackomatBacker> {
     Color color = Theme.of(context).primaryColor;
 
     Widget headerSection = Image.asset(
-      "images/${recipe?.image ?? "20220907-bergkruste.jpg"}",
+      "assets/images/${recipe?.image ?? "20220907-bergkruste.jpg"}",
       width: double.infinity,
       height: 240,
       fit: BoxFit.cover,
@@ -104,14 +106,14 @@ class _BackomatBacker extends State<BackomatBacker> {
   @override
   void initState() {
     super.initState();
-    addBackerFromApplicationDocument(widget.filename);
+    addBackerFromDatabase(widget.id);
   }
 
-  void addBackerFromApplicationDocument(String name) async {
-    await Util.applicationDocumentFile(name)
-        .then((file) => file.readAsString().then((fileString) {
-              setState(() => recipe =
-                  Item.fromJson(jsonDecode(fileString), showTimer: true));
-            }));
+  void addBackerFromDatabase(int id) async {
+    await dbHelper.getRecipeJsonById(id).then((entry) {
+      setState(() {
+        recipe = Item.fromJson(jsonDecode(entry!.jsonData), showTimer: true);
+      });
+    });
   }
 }
