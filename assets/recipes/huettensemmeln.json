@@ -1,0 +1,87 @@
+
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Hüttensemmeln",
+  "description": "Ein Experiment mit zweierlei Vorteigen, die einen ausgeprägten Eigengeschmack ins Brötchen bringen. Der vollreife Teig wird nur abgestochen und nach 30 Minuten gebacken.",
+  "recipeCategory": "Kleingebäck",
+  "recipeCuisine": "Deutsch",
+  "recipeYield": "ca. 9 Brötchen à 90 g",
+  "prepTime": "PT45M",
+  "cookTime": "PT18M",
+  "totalTime": "PT15H50M",
+  "recipeIngredient": [
+    "Vorteig A:",
+    "100 g Wasser (30 °C)",
+    "100 g Weizenmehl Type 550",
+    "0,1 g Frischhefe",
+    "Vorteig B:",
+    "50 g Wasser (10 °C)",
+    "100 g Weizenmehl Type 550",
+    "0,2 g Frischhefe",
+    "Hauptteig:",
+    "175 g Wasser (25 °C)",
+    "10 g Salz",
+    "275 g Weizenmehl Type 550",
+    "25 g Roggenmehl Type 997 (alternativ Type 1150)",
+    "Gesamter Vorteig A",
+    "Gesamter Vorteig B",
+    "4 g Frischhefe",
+    "10 g Butter (kalt)"
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "name": "Vorteig A vorbereiten",
+      "text": "100 g Wasser (30 °C), 100 g Weizenmehl Type 550 und 0,1 g Frischhefe verrühren. 10–12 Stunden bei Raumtemperatur reifen lassen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Vorteig B vorbereiten",
+      "text": "50 g Wasser (10 °C), 100 g Weizenmehl Type 550 und 0,2 g Frischhefe von Hand zu einem festen Teig vermengen. 10–12 Stunden bei Raumtemperatur reifen lassen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Hauptteig kneten",
+      "text": "Beide Vorteige mit 175 g Wasser (25 °C), 10 g Salz, 275 g Weizenmehl Type 550, 25 g Roggenmehl, 4 g Frischhefe und 10 g kalter Butter vermischen. 5 Minuten auf niedrigster Stufe und weitere 6–8 Minuten auf zweiter Stufe zu einem straffen und glatten Teig verarbeiten."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Teig reifen lassen",
+      "text": "Den Teig 2 Stunden bei Raumtemperatur reifen lassen. Nach 30 und 60 Minuten dehnen und falten. Das Teigvolumen sollte sich dabei knapp verdoppeln."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Teiglinge abstechen",
+      "text": "Den Teig schonend auf die bemehlte Arbeitsfläche geben. Quaderförmige Teiglinge zu ca. 90 g abstechen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Stückgare",
+      "text": "Die Teiglinge für 30 Minuten bei Raumtemperatur im Bäckerleinen gehen lassen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Backen",
+      "text": "Die Teiglinge tief einschneiden und mit Dampf bei 230 °C für 16–18 Minuten goldbraun backen."
+    }
+  ],
+  "keywords": "Hüttensemmeln, Brötchen, Weizen, Vorteig, Kleingebäck, Hefeteig",
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Mehlzusammensetzung",
+      "value": "475 g Weizenmehl Type 550 (95 %), 25 g Roggenmehl Type 997 oder 1150 (5 %)"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Teigausbeute",
+      "value": "TA 165"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Planungsbeispiel",
+      "value": "Freitag 19:00 Uhr Vorteige ansetzen; Samstag 06:00 Uhr Teig kneten; 06:45 und 07:15 Uhr dehnen und falten; 08:15 Uhr Teiglinge abstechen; 08:50 Uhr backen."
+    }
+  ]
+}

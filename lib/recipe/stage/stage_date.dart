@@ -2,40 +2,54 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class StageDate extends StatefulWidget {
-  const StageDate({super.key, required this.initialDateTime});
+  const StageDate({
+    super.key,
+    required this.initialDateTime,
+    this.onDateTimeChanged,
+  });
 
   final DateTime initialDateTime;
+  final ValueChanged<DateTime>? onDateTimeChanged;
 
   @override
   State<StageDate> createState() => _StageDate();
 }
 
 class _StageDate extends State<StageDate> with RestorationMixin {
-
   @override
   String get restorationId => 'stage_date';
 
-  late final RestorableDateTime dateTime = RestorableDateTime(widget.initialDateTime);
+  late final RestorableDateTime dateTime = RestorableDateTime(
+    widget.initialDateTime,
+  );
 
   @override
   void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
     registerForRestoration(dateTime, 'dateTime');
     registerForRestoration(
-        _restorableRouteFutureDate, 'date_picker_route_future');
+      _restorableRouteFutureDate,
+      'date_picker_route_future',
+    );
     registerForRestoration(
-        _restorableRouteFutureTime, 'time_picker_route_future');
+      _restorableRouteFutureTime,
+      'time_picker_route_future',
+    );
   }
 
   void _selectDate(DateTime? newDate) {
     if (newDate != null) {
       setState(() {
         dateTime.value = DateTime(
-            newDate.year,
-            newDate.month,
-            newDate.day,
-            dateTime.value.hour,
-            dateTime.value.minute);
+          newDate.year,
+          newDate.month,
+          newDate.day,
+          dateTime.value.hour,
+          dateTime.value.minute,
+        );
       });
+      if (widget.onDateTimeChanged != null) {
+        widget.onDateTimeChanged!(dateTime.value);
+      }
     }
   }
 
@@ -43,34 +57,40 @@ class _StageDate extends State<StageDate> with RestorationMixin {
     if (newTime != null) {
       setState(() {
         dateTime.value = DateTime(
-            dateTime.value.year,
-            dateTime.value.month,
-            dateTime.value.day,
-            newTime.hour,
-            newTime.minute);
+          dateTime.value.year,
+          dateTime.value.month,
+          dateTime.value.day,
+          newTime.hour,
+          newTime.minute,
+        );
       });
+      if (widget.onDateTimeChanged != null) {
+        widget.onDateTimeChanged!(dateTime.value);
+      }
     }
   }
 
   late final RestorableRouteFuture<DateTime?> _restorableRouteFutureDate =
       RestorableRouteFuture<DateTime?>(
-          onComplete: _selectDate,
-          onPresent: (NavigatorState navigator, Object? arguments) {
-            return navigator.restorablePush(
-              _datePickerRoute,
-              arguments: dateTime.value.millisecondsSinceEpoch,
-            );
-          });
+        onComplete: _selectDate,
+        onPresent: (NavigatorState navigator, Object? arguments) {
+          return navigator.restorablePush(
+            _datePickerRoute,
+            arguments: dateTime.value.millisecondsSinceEpoch,
+          );
+        },
+      );
 
   late final RestorableRouteFuture<TimeOfDay?> _restorableRouteFutureTime =
       RestorableRouteFuture<TimeOfDay?>(
-          onComplete: _selectTime,
-          onPresent: (NavigatorState navigator, Object? arguments) {
-            return navigator.restorablePush(
-              _timePickerRoute,
-              arguments: dateTime.value.millisecondsSinceEpoch,
-            );
-          });
+        onComplete: _selectTime,
+        onPresent: (NavigatorState navigator, Object? arguments) {
+          return navigator.restorablePush(
+            _timePickerRoute,
+            arguments: dateTime.value.millisecondsSinceEpoch,
+          );
+        },
+      );
 
   static Route<DateTime> _datePickerRoute(
     BuildContext context,
@@ -99,7 +119,9 @@ class _StageDate extends State<StageDate> with RestorationMixin {
       builder: (BuildContext context) {
         return TimePickerDialog(
           restorationId: 'time_picker_dialog',
-          initialTime: TimeOfDay.now(),
+          initialTime: TimeOfDay.fromDateTime(
+            DateTime.fromMillisecondsSinceEpoch(arguments! as int),
+          ),
         );
       },
     );
@@ -114,38 +136,46 @@ class _StageDate extends State<StageDate> with RestorationMixin {
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-                color: Colors.lightBlue[100],
-                borderRadius: BorderRadius.circular(20)),
+              color: Colors.lightBlue[100],
+              borderRadius: BorderRadius.circular(20),
+            ),
             child: Text(
               "${DateFormat("EE").format(dateTime.value)}. ${dateTime.value.day}. ${DateFormat("MMM").format(dateTime.value)}. ${dateTime.value.year}",
               style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontSize: 18),
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontSize: 18,
+              ),
             ),
           ),
           onPressed: () {
-            _restorableRouteFutureDate.present();
+            _restorableRouteFutureDate.present(
+              dateTime.value.millisecondsSinceEpoch,
+            );
           },
         ),
         TextButton(
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-                color: Colors.lightBlue[100],
-                borderRadius: BorderRadius.circular(20)),
+              color: Colors.lightBlue[100],
+              borderRadius: BorderRadius.circular(20),
+            ),
             child: Text(
               "${DateFormat("HH").format(dateTime.value)}:${DateFormat("mm").format(dateTime.value)}",
               style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontSize: 18),
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontSize: 18,
+              ),
             ),
           ),
           onPressed: () {
-            _restorableRouteFutureTime.present();
+            _restorableRouteFutureTime.present(
+              dateTime.value.millisecondsSinceEpoch,
+            );
           },
-        )
+        ),
       ],
     );
   }

@@ -1,0 +1,75 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Pizza",
+  "description": "Pizzateig mit Weizenmehl, Dinkelmehl, Weizenanstellgut und langer kalter Teigführung. Zeitlich flexibel und besonders gut für den Holzofen geeignet.",
+  "recipeCategory": "Pizza",
+  "recipeCuisine": "Italienisch",
+  "keywords": "Pizza, Pizzateig, Sauerteig, kalte Gare, Weizen, Dinkel",
+  "recipeYield": "3 Pizzen à 220 g Teig",
+  "prepTime": "PT25M",
+  "cookTime": "PT6M",
+  "totalTime": "PT28H21M",
+  "recipeIngredient": [
+    "348 g Weizenmehl Type 550",
+    "40 g Dinkelmehl Type 630",
+    "240 g Wasser (20 °C)",
+    "24 g Weizenanstellgut (weich)",
+    "8 g Salz",
+    "3,2 g Frischhefe",
+    "Olivenöl zum Wälzen",
+    "Mehl zum Formen"
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "name": "Hauptteig kneten",
+      "text": "Alle Teigzutaten außer dem Olivenöl 5 Minuten auf niedrigster Stufe und anschließend 5 Minuten auf zweiter Stufe zu einem mittelfesten Teig kneten."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Stockgare",
+      "text": "Den Teig in einer geölten Schüssel 8–12 Stunden bei 6–8 °C lagern."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Teiglinge abstechen",
+      "text": "Drei Teiglinge zu jeweils 220 g abstechen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Teiglinge formen",
+      "text": "Die Teiglinge schonend rund einschlagen und rundherum mit Olivenöl einstreichen oder darin wälzen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Stückgare",
+      "text": "Die Teiglinge mit Schluss nach unten auf einem Blech oder in einer Wanne für weitere 8–16 Stunden bei 6–8 °C lagern."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Teiglinge vorbereiten",
+      "text": "Die Teiglinge aus der Wanne nehmen und in Mehl wälzen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Pizza formen",
+      "text": "Jeweils einen Teigling von unten her dünn ausziehen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Pizza belegen",
+      "text": "Die Pizza nach Belieben dünn belegen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Pizza backen",
+      "text": "Auf einem heißen Backstahl oder Backstein bei 280 °C etwa 6 Minuten kross backen. Alternativ bei idealerweise 350 °C für 2–3 Minuten oder bei 250 °C für 8–10 Minuten backen."
+    }
+  ],
+  "tool": [
+    "Küchenmaschine",
+    "Teigwanne",
+    "Backstahl oder Backstein"
+  ]
+}

@@ -1,20 +1,27 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+
 import 'dart:io';
 import 'dart:convert';
+
+import '../../baking/baking_schema.dart';
+import '../../recipe/data/recipe_schema.dart';
 
 class RecipeJsonEntry {
   final int id;
   final String name;
   final String jsonData;
   final DateTime lastModified;
+  final int? familyId;
+  final int variantCount;
 
   RecipeJsonEntry({
     required this.id,
     required this.name,
     required this.jsonData,
     required this.lastModified,
+    this.familyId,
+    this.variantCount = 1,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,7 +29,7 @@ class RecipeJsonEntry {
       'id': id,
       'name': name,
       'recipe_data': jsonData,
-      'last_modified': lastModified?.millisecondsSinceEpoch,
+      'last_modified': lastModified.millisecondsSinceEpoch,
     };
   }
 
@@ -55,11 +62,14 @@ class DatabaseHelperJson {
 
   Future<Database> _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, 'recipes_json_database.db');
+    String path = File.fromUri(
+      documentsDirectory.uri.resolve('recipes_json_database.db'),
+    ).path;
     return await openDatabase(
       path,
-      version: 1,
+      version: 4,
       onCreate: _onCreate,
+      onUpgrade: upgradeRecipeDatabase,
     );
   }
 
@@ -72,23 +82,9 @@ class DatabaseHelperJson {
         last_modified INTEGER NOT NULL
       )
     ''');
-  }
-
-  Future<int> insertRecipeJson(int id, String name, String jsonString) async {
-    final db = await database;
-    return await db.insert(
-      'recipes_json',
-      {
-        'id': id,
-        'name': name,
-        'recipe_data': jsonString,
-        'last_modified': DateTime
-            .now()
-            .millisecondsSinceEpoch,
-      },
-      conflictAlgorithm: ConflictAlgorithm
-          .replace, // Or .ignore if you don't want to update
-    );
+    await createBakingSessions(db);
+    await createRecipeFamilies(db);
+    await createRecipeOrdering(db);
   }
 
   Future<RecipeJsonEntry?> getRecipeJsonById(int id) async {
@@ -124,41 +120,12 @@ class DatabaseHelperJson {
   Future<List<RecipeJsonEntry>> getAllRecipeJsonEntries() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
-        'recipes_json', orderBy: 'name ASC');
+      'recipes_json',
+      orderBy: 'name ASC',
+    );
 
     return List.generate(maps.length, (i) {
       return RecipeJsonEntry.fromMap(maps[i]);
     });
-  }
-
-  Future<int> updateRecipeJson(int id, String name, String jsonString) async {
-    final db = await database;
-    return await db.update(
-      'recipes_json',
-      {
-        'name': name,
-        'recipe_data': jsonString,
-        'last_modified': DateTime
-            .now()
-            .millisecondsSinceEpoch,
-      },
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-  }
-
-  Future<int> deleteRecipeJson(int id) async {
-    final db = await database;
-    return await db.delete(
-      'recipes_json',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-  }
-
-  Future<void> clearDatabase() async {
-    final db = await database;
-    await db.delete('recipes_json');
-    print("JSON Recipe Database cleared.");
   }
 }

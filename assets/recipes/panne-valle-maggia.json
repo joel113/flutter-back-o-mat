@@ -1,0 +1,108 @@
+
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Pane Valle Maggia",
+  "description": "Ein lockeres Brot mit unregelmäßiger Porung. Der Geschmack wird durch den kalt geführten Sauerteig, den festen Vorteig, durch Hartweizen und die lange Teigführung ins Brot gebracht.",
+  "recipeCategory": "Brot",
+  "recipeCuisine": "Schweizerisch",
+  "recipeYield": "1 Brot",
+  "keywords": "Sauerteig, Weizenbrot, Hartweizen, lange Teigführung",
+  "prepTime": "PT4H",
+  "cookTime": "PT1H",
+  "totalTime": "P1DT6H",
+  "recipeIngredient": [
+    "357,5 g Weizenmehl Type 550",
+    "165 g Hartweizenmehl",
+    "412,5 g Wasser",
+    "55 g Weizenanstellgut (weich)",
+    "12,1 g Salz",
+    "1,1 g Frischhefe"
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToSection",
+      "name": "Vorteig",
+      "itemListElement": [
+        {
+          "@type": "HowToStep",
+          "text": "55 g Wasser (40 °C), 110 g Hartweizenmehl und 1,1 g Frischhefe zu einem festen Teig mischen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Den Vorteig 20–28 Stunden bei 5 °C im Kühlschrank reifen lassen."
+        }
+      ]
+    },
+    {
+      "@type": "HowToSection",
+      "name": "Sauerteig",
+      "itemListElement": [
+        {
+          "@type": "HowToStep",
+          "text": "55 g Wasser (60 °C bzw. 40 °C), 55 g Hartweizenmehl und 55 g weiches Weizenanstellgut mischen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Den Sauerteig 1,5 Stunden bei 28 °C reifen lassen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Anschließend 8–12 Stunden bei 5 °C im Kühlschrank lagern. Ist das Anstellgut kalt, wärmeres Wasser verwenden."
+        }
+      ]
+    },
+    {
+      "@type": "HowToSection",
+      "name": "Autolyseteig",
+      "itemListElement": [
+        {
+          "@type": "HowToStep",
+          "text": "220 g Wasser (40 °C) und 357,5 g Weizenmehl Type 550 mischen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "30 Minuten bei Raumtemperatur ruhen lassen."
+        }
+      ]
+    },
+    {
+      "@type": "HowToSection",
+      "name": "Hauptteig",
+      "itemListElement": [
+        {
+          "@type": "HowToStep",
+          "text": "Den gesamten Autolyseteig, den gesamten Sauerteig, den gesamten Vorteig und 12,1 g Salz auf niedrigster Stufe 5 Minuten und auf zweiter Stufe 5–6 Minuten zu einem festen, glatten Teig kneten."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "82,5 g Wasser (55 °C) schluckweise auf niedrigster Stufe einarbeiten, bis wieder ein glatter, aber sehr weicher Teig entstanden ist."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Den Teig 2,5 Stunden bei Raumtemperatur reifen lassen. Nach 30, 60 und 90 Minuten dehnen und falten."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Nachdem sich der Teig knapp verdoppelt hat, den Teig schonend auf die Arbeitsfläche geben."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Ebenso schonend und dennoch straff rund einschlagen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Mit Schluss nach oben 1 Stunde im Gärkorb bei Raumtemperatur reifen lassen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Den Teigling stürzen und dreimal mit gerader Klinge parallel einschneiden."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Bei 270 °C fallend auf 230 °C mit Schluss nach unten und viel Dampf 1 Stunde tiefbraun backen."
+        }
+      ]
+    }
+  ]
+}

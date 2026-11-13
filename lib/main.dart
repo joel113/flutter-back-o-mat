@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_back_o_mat/util/db/db_recipe_importer.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'l10n/app_localizations.dart';
 import 'navigation.dart';
+import 'theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,18 +19,18 @@ class Backomat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: AppLocalizations.of(context)?.title,
-      home: BackomatNavigation(),
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.title,
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.system,
+      home: const BackomatNavigation(),
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
-        Locale('en', ''),
-        Locale('de', ''),
-      ],
+      supportedLocales: [Locale('en', ''), Locale('de', '')],
     );
   }
 }

@@ -1,77 +1,99 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_back_o_mat/recipe/backer.dart';
 
+import '../l10n/app_localizations.dart';
+import '../recipe/backer.dart';
 import '../recipe/recipe.dart';
+import '../recipe/editor/recipe_image.dart';
+import 'recipe_summary.dart';
 
 class Item extends StatelessWidget {
-  Item(
-      {required this.id,
-      required this.image,
-      required this.name,
-      required this.description})
-      : super(key: ObjectKey(name));
-
-  final int id;
-  final Image image;
-  final String name;
-  final String? description;
+  const Item({super.key, required this.recipe, this.onChanged});
+  final RecipeSummary recipe;
+  final VoidCallback? onChanged;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-              child: Container(
-                  padding: const EdgeInsets.only(right: 8), child: image)),
-          Expanded(
-              flex: 3,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    name,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 16),
+    final strings = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final compact = constraints.maxWidth < 600;
+        return InkWell(
+          onTap: () => Navigator.of(context)
+              .push(
+                MaterialPageRoute<void>(
+                  builder: (_) => BackomatRecipe(id: recipe.id),
+                ),
+              )
+              .then((_) => onChanged?.call()),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: compact ? 16 : 20,
+              vertical: 16,
+            ),
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: RecipeImage(
+                    image: recipe.image,
+                    width: compact ? 64 : 88,
+                    height: compact ? 64 : 80,
                   ),
-                  const SizedBox(height: 10),
-                  Text(description!, style: const TextStyle(fontSize: 16)),
-                ],
-              )),
-          IconButton(
-            icon: const Icon(Icons.favorite, color: Colors.pink),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          BackomatRecipe(id: id)));
-            },
+                ),
+                SizedBox(width: compact ? 16 : 20),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        recipe.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.titleMedium,
+                      ),
+                      if (recipe.variantCount > 1) ...[
+                        const SizedBox(height: 4),
+                        Text(
+                          strings.variantCount(recipe.variantCount),
+                          style: theme.textTheme.labelMedium,
+                        ),
+                      ],
+                      if (recipe.description?.trim().isNotEmpty ?? false) ...[
+                        const SizedBox(height: 6),
+                        Text(
+                          recipe.description!,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 12),
+                IconButton.filledTonal(
+                  tooltip: strings.startBaking,
+                  style: IconButton.styleFrom(
+                    foregroundColor: theme.colorScheme.primary,
+                  ),
+                  icon: const Icon(Icons.play_arrow_rounded),
+                  onPressed: () => Navigator.of(context)
+                      .push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => BackomatBacker(id: recipe.id),
+                        ),
+                      )
+                      .then((_) => onChanged?.call()),
+                ),
+              ],
+            ),
           ),
-          IconButton(
-            icon: const Icon(Icons.aspect_ratio),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          BackomatRecipe(id: id)));
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.not_started_outlined),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          BackomatBacker(id: id)));
-            },
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

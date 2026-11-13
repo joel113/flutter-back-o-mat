@@ -58,31 +58,65 @@ class ItemStage {
   }
 }
 
-class ItemStages extends StatelessWidget {
+class ItemStages extends StatefulWidget {
   const ItemStages({super.key, required this.stages, this.showTimer = false});
 
   final List<ItemStage> stages;
   final bool showTimer;
 
   @override
-  Widget build(BuildContext context) {
-    if (showTimer) {
-      return buildWithTimer(context);
-    } else {
-      return buildWithoutTimer(context);
-    }
+  State<ItemStages> createState() => _ItemStagesState();
+
+  static ItemStages fromJson(
+      Map<dynamic, dynamic> baseIngredients, List<dynamic> json,
+      {bool showTimer = false}) {
+    // The 'stages' field within an ItemStage instance needs careful handling.
+    // If it's meant to refer to the global list of stages, it can be passed directly.
+    // If it's meant for something else, this logic might need to be different.
+    List<ItemStage> parsedStages = [];
+    parsedStages = json
+        .map(
+            (e) => ItemStage.fromJson(baseIngredients, e, showTimer: showTimer))
+        .toList();
+
+    // If ItemStage.stages was intended to be a circular reference to the main list,
+    // we might need to update them after all are parsed, or adjust the ItemStage constructor.
+    // For now, I'll assume ItemStage.stages can be the main list.
+    List<ItemStage> finalStages = parsedStages
+        .map((stage) => ItemStage(
+            id: stage.id,
+            name: stage.name,
+            ingredients: stage.ingredients,
+            description: stage.description,
+            initialItemDuration: stage.initialItemDuration,
+            temperature: stage.temperature,
+            initialStartTime: stage.initialStartTime,
+            stages: parsedStages,
+            // Passing the full list of stages here
+            showTimer: stage.showTimer))
+        .toList(growable: false);
+
+    return ItemStages(stages: finalStages, showTimer: showTimer);
+  }
+}
+
+class _ItemStagesState extends State<ItemStages> {
+  late List<ItemStage> stages;
+
+  @override
+  void initState() {
+    super.initState();
+    stages = List<ItemStage>.from(widget.stages);
   }
 
   DateTime _calculateStartTime(
-      ItemStage currentStage, List<ItemStage> allStages) {
-    DateTime startTime = DateTime.now();
-    // This logic might need adjustment depending on how `currentStage.ingredients`
-    // and `allStages` are structured and used.
-    // The original calculateStartTime had a potential O(n^2) complexity.
-    // Consider if this logic can be optimized or is still appropriate.
+      ItemStage currentStage, List<ItemStage> allStages, DateTime startTime) {
+    if (currentStage.initialStartTime != null) {
+      return currentStage.initialStartTime!;
+    }
     for (ItemStage stage in allStages) {
       if (currentStage.ingredients.ingredients.containsKey(stage.id)) {
-        DateTime stageStartTime = _calculateStartTime(stage, allStages);
+        DateTime stageStartTime = _calculateStartTime(stage, allStages, DateTime.now());
         int newStartTime = stageStartTime.millisecondsSinceEpoch +
             stage.initialItemDuration.initialLowerValue.inMilliseconds;
         if (newStartTime > startTime.millisecondsSinceEpoch) {
@@ -90,7 +124,17 @@ class ItemStages extends StatelessWidget {
         }
       }
     }
+    //setState(() {});
     return startTime;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.showTimer) {
+      return buildWithTimer(context);
+    } else {
+      return buildWithoutTimer(context);
+    }
   }
 
   Widget buildWithTimer(BuildContext context) {
@@ -108,7 +152,8 @@ class ItemStages extends StatelessWidget {
         3: FixedColumnWidth(150)
       },
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      children: stages.map((stage) {
+      children: List.generate(stages.length, (index) {
+        final stage = stages[index];
         return TableRow(children: [
           TableCell(
               child: Padding(
@@ -132,7 +177,11 @@ class ItemStages extends StatelessWidget {
               child: Padding(
             padding: const EdgeInsets.only(top: 8, bottom: 8),
             child: StageDate(
-                initialDateTime: _calculateStartTime(stage, stages)),
+              initialDateTime: _calculateStartTime(stage, stages, DateTime.now()),
+              onDateTimeChanged: (newDateTime) {
+                _calculateStartTime(stages[index], stages, newDateTime);
+              },
+            ),
           )),
           TableCell(
               child: Padding(
@@ -142,7 +191,7 @@ class ItemStages extends StatelessWidget {
                       child: StageTimer(
                           initialItemDuration: stage.initialItemDuration))))
         ]);
-      }).toList(),
+      }),
     );
   }
 
@@ -157,7 +206,7 @@ class ItemStages extends StatelessWidget {
       columnWidths: const <int, TableColumnWidth>{
         0: FixedColumnWidth(156),
         1: FlexColumnWidth(1),
-        2: FixedColumnWidth(156), // Corrected from FlexColumnWidth(1) to FlexColumnWidth(156) based on previous context
+        2: FixedColumnWidth(156),
       },
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       children: stages.map((stage) {
@@ -191,35 +240,5 @@ class ItemStages extends StatelessWidget {
         ]);
       }).toList(),
     );
-  }
-
-  static ItemStages fromJson(
-      Map<dynamic, dynamic> baseIngredients, List<dynamic> json,
-      {bool showTimer = false}) {
-    // The 'stages' field within an ItemStage instance needs careful handling.
-    // If it's meant to refer to the global list of stages, it can be passed directly.
-    // If it's meant for something else, this logic might need to be different.
-    List<ItemStage> parsedStages = [];
-    parsedStages = json
-        .map((e) =>
-            ItemStage.fromJson(baseIngredients, e, showTimer: showTimer))
-        .toList();
-
-    // If ItemStage.stages was intended to be a circular reference to the main list,
-    // we might need to update them after all are parsed, or adjust the ItemStage constructor.
-    // For now, I'll assume ItemStage.stages can be the main list.
-    List<ItemStage> finalStages = parsedStages.map((stage) => ItemStage(
-        id: stage.id,
-        name: stage.name,
-        ingredients: stage.ingredients,
-        description: stage.description,
-        initialItemDuration: stage.initialItemDuration,
-        temperature: stage.temperature,
-        initialStartTime: stage.initialStartTime,
-        stages: parsedStages, // Passing the full list of stages here
-        showTimer: stage.showTimer
-    )).toList(growable: false);
-
-    return ItemStages(stages: finalStages, showTimer: showTimer);
   }
 }

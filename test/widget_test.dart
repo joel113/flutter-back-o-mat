@@ -1,30 +1,29 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:flutter_back_o_mat/main.dart';
+import 'package:flutter_back_o_mat/recipes/recipes.dart';
+import 'package:flutter_back_o_mat/l10n/app_localizations.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const Backomat());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('recipe list opens the three recipe input methods', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: Scaffold(body: BackomatRecipes(loadRecipes: () async => [])),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Add recipe'), findsOneWidget);
+    await tester.tap(find.text('Add recipe'));
+    await tester.pumpAndSettle();
+    expect(find.text('Enter manually'), findsOneWidget);
+    expect(find.text('Import JSON'), findsOneWidget);
+    expect(find.text('Scan photo or PDF'), findsOneWidget);
+    await tester.tap(find.text('Enter manually'));
+    await tester.pumpAndSettle();
+    expect(find.byType(TextFormField), findsNWidgets(2));
+    expect(tester.takeException(), isNull);
   });
 }

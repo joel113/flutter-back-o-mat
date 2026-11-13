@@ -1,0 +1,143 @@
+
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Weizensauerteig auffrischen und reaktivieren",
+  "description": "Mehrstufige Auffrischung eines im Kühlschrank gelagerten Weizensauerteigs zur Verbesserung der Triebkraft und zur Vorbereitung auf anspruchsvolle Brotrezepte mit langer Teigführung und hoher Hydration.",
+  "recipeCategory": "Sauerteig",
+  "keywords": "Sauerteig, Anstellgut, Weizensauerteig, Auffrischung, Reaktivierung, Sauerteigpflege",
+  "prepTime": "PT20M",
+  "totalTime": "P3D",
+  "recipeYield": "105 g aktives Weizenanstellgut",
+  "recipeIngredient": [
+    "10 g Weizenanstellgut aus dem Kühlschrank",
+    "135 g Weizenmehl Type 550",
+    "135 g Wasser"
+  ],
+  "tool": [
+    {
+      "@type": "HowToTool",
+      "name": "WECK-Sturzglas 580 ml mit Glasdeckel"
+    },
+    {
+      "@type": "HowToTool",
+      "name": "Digitalwaage"
+    },
+    {
+      "@type": "HowToTool",
+      "name": "Gummiband zur Markierung der Ausgangshöhe"
+    },
+    {
+      "@type": "HowToTool",
+      "name": "Thermometer"
+    }
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToSection",
+      "name": "Erste Auffrischung",
+      "itemListElement": [
+        {
+          "@type": "HowToStep",
+          "text": "10 g Weizenanstellgut aus dem Kühlschrank mit 30 g Wasser und 30 g Weizenmehl Type 550 in einem sauberen Glas gründlich vermischen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Die Oberfläche glatt streichen und die Ausgangshöhe mit einem Gummiband markieren."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Den Glasdeckel ohne Gummiring und Klammern lose auflegen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Bei 26–28 °C reifen lassen, bis der Sauerteig seinen höchsten Stand erreicht hat. Bei einem länger nicht aufgefrischten Sauerteig kann dies 12–24 Stunden dauern."
+        }
+      ]
+    },
+    {
+      "@type": "HowToSection",
+      "name": "Zweite Auffrischung",
+      "itemListElement": [
+        {
+          "@type": "HowToStep",
+          "text": "10 g des gereiften Sauerteigs mit 30 g Wasser und 30 g Weizenmehl Type 550 in einem sauberen Glas vermischen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Die Ausgangshöhe markieren und den Deckel lose auflegen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Bei 26–28 °C bis zum Höhepunkt der Reife stehen lassen. Die Reifezeit sollte gegenüber der ersten Auffrischung kürzer werden."
+        }
+      ]
+    },
+    {
+      "@type": "HowToSection",
+      "name": "Dritte Auffrischung",
+      "itemListElement": [
+        {
+          "@type": "HowToStep",
+          "text": "Erneut 10 g des gereiften Sauerteigs mit 30 g Wasser und 30 g Weizenmehl Type 550 vermischen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Bei 26–28 °C reifen lassen und die Volumenzunahme beobachten."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Der Sauerteig sollte sich idealerweise innerhalb von 4–8 Stunden mindestens verdoppeln, zahlreiche Gasblasen bilden und angenehm milchsäuerlich oder leicht fruchtig riechen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Falls der Sauerteig noch nicht ausreichend aktiv ist, die Auffrischung im Verhältnis 1:3:3 wiederholen, bis er bei mindestens zwei aufeinanderfolgenden Auffrischungen eine zuverlässige Aktivität zeigt."
+        }
+      ]
+    },
+    {
+      "@type": "HowToSection",
+      "name": "Letzte Auffrischung vor dem Backen",
+      "itemListElement": [
+        {
+          "@type": "HowToStep",
+          "text": "15 g aktives Anstellgut mit 45 g Wasser und 45 g Weizenmehl Type 550 vermischen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Bei 26–28 °C bis zum Höhepunkt der Reife stehen lassen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "55 g des frisch gereiften Anstellguts für den Sauerteig des Pane Valle Maggia entnehmen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Die verbleibenden 50 g Anstellgut im Kühlschrank aufbewahren."
+        }
+      ]
+    },
+    {
+      "@type": "HowToSection",
+      "name": "Regelmäßige Sauerteigpflege",
+      "itemListElement": [
+        {
+          "@type": "HowToStep",
+          "text": "Das Anstellgut möglichst einmal pro Woche auffrischen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Dazu 5 g Anstellgut mit 15 g Wasser und 15 g Weizenmehl Type 550 vermischen."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Bei Raumtemperatur anspringen lassen, bis erste deutliche Fermentationsaktivität sichtbar ist, und anschließend im Kühlschrank lagern."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Vor dem nächsten Backen bei Bedarf zwei bis vier warme Auffrischungen durchführen."
+        }
+      ]
+    }
+  ]
+}
