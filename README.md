@@ -188,6 +188,22 @@ once, using its main variant's cover and description. Open a recipe to switch
 variants, create an independent copy with a unique variant name, choose the main
 variant, or rename the family. Recipe titles may remain the same across variants.
 
+In the **Variants / Varianten** section, **Import variant from file** accepts
+native JSON and Schema.org JSON-LD (up to 2 MB). Select a recipe when the file
+contains several, review it in the editor, and choose a unique variant name.
+Saving creates a new local variant in the current family; imported IDs never
+overwrite existing records. Canceling or discarding the editor creates nothing.
+
+**Delete variant** requires confirmation and removes that variant's revision
+history. When deleting the main variant, select a remaining variant as its
+replacement. The last variant in a family cannot be deleted. Current preparation
+links must be removed or reassigned before deleting their target variant.
+Saved baking snapshots, family notes, and family ordering remain unchanged;
+cover files are retained because existing snapshots may still reference them.
+Database version 5 records which bundled assets have already been processed,
+so deleting or renaming their original variants does not import them again at
+the next startup. Existing recipes, notes, history, and baking sessions are kept.
+
 Drag the handle at the right of a recipe row to arrange the start screen manually.
 The order is saved automatically per bread family and survives main-variant
 changes and restarts. New families are appended at the bottom. Database version

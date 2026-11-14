@@ -74,6 +74,7 @@ Future<void> upgradeRecipeDatabase(
     }
   }
   if (oldVersion < 4 && newVersion >= 4) await createRecipeOrdering(db);
+  if (oldVersion < 5 && newVersion >= 5) await createBundledRecipeImports(db);
 }
 
 /// Preserve the formerly alphabetical order when introducing persisted positions.
@@ -95,3 +96,8 @@ Future<void> createRecipeOrdering(DatabaseExecutor db) async {
     );
   }
 }
+
+/// Tracks bundled assets independently of editable recipe names and variants.
+Future<void> createBundledRecipeImports(DatabaseExecutor db) => db.execute(
+  'CREATE TABLE bundled_recipe_imports(asset_path TEXT PRIMARY KEY NOT NULL)',
+);

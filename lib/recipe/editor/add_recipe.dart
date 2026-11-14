@@ -1,10 +1,10 @@
-import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../data/recipe_data.dart';
 import 'recipe_editor.dart';
 import 'scan_recipe.dart';
+import 'recipe_file_import.dart';
 
 Future<int?> addRecipe(BuildContext context) async {
   final s = AppLocalizations.of(context)!;
@@ -43,41 +43,9 @@ Future<int?> addRecipe(BuildContext context) async {
   var recipe = RecipeData();
   try {
     if (choice == 1) {
-      final file = await openFile(
-        acceptedTypeGroups: [
-          const XTypeGroup(
-            extensions: ['json', 'jsonld'],
-            uniformTypeIdentifiers: ['public.json'],
-          ),
-        ],
-      );
-      if (file == null || !context.mounted) return null;
-      if (await file.length() > 2 * 1024 * 1024) {
-        throw const FormatException('size');
-      }
-      final recipes = RecipeImport.parse(await file.readAsString());
-      if (!context.mounted) return null;
-      if (recipes.length == 1) {
-        recipe = recipes.single;
-      } else {
-        final selected = await showDialog<RecipeData>(
-          context: context,
-          builder: (context) => SimpleDialog(
-            title: Text(s.selectRecipe),
-            children: [
-              for (final recipe in recipes)
-                SimpleDialogOption(
-                  onPressed: () => Navigator.pop(context, recipe),
-                  child: Text(recipe.name),
-                ),
-            ],
-          ),
-        );
-        if (selected == null || !context.mounted) return null;
-        recipe = selected;
-      }
-      // Local images belong to this installation and cannot be imported by name.
-      if (recipe.image?.startsWith('local:') ?? false) recipe.image = null;
+      final imported = await importRecipeFile(context);
+      if (imported == null || !context.mounted) return null;
+      recipe = imported;
     }
     if (!context.mounted) return null;
     return await Navigator.push<int>(
@@ -85,13 +53,7 @@ Future<int?> addRecipe(BuildContext context) async {
       MaterialPageRoute(
         builder: (_) => RecipeEditor(
           recipe: recipe,
-          notice: choice == 1
-              ? [
-                  s.jsonReview,
-                  if (recipe.importedPreparationsRemoved)
-                    s.preparationsImportRemoved,
-                ].join('\n\n')
-              : null,
+          notice: choice == 1 ? recipeImportNotice(s, recipe) : null,
         ),
       ),
     );

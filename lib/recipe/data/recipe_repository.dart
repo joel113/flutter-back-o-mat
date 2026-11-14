@@ -6,6 +6,11 @@ import '../../util/db/db.dart';
 import 'recipe_data.dart';
 import 'recipe_family.dart';
 
+class VariantDeletionBlocked implements Exception {
+  const VariantDeletionBlocked(this.recipes);
+  final List<String> recipes;
+}
+
 class RecipeRepository {
   RecipeRepository({Future<Database> Function()? database})
     : _database = database ?? (() => DatabaseHelperJson().database);
@@ -196,6 +201,26 @@ class RecipeRepository {
     );
   }
 
+  Future<bool> importBundled(String assetPath, RecipeData recipe) async {
+    final db = await _database();
+    return db.transaction((txn) async {
+      final seen = await txn.query(
+        'bundled_recipe_imports',
+        where: 'asset_path = ?',
+        whereArgs: [assetPath],
+      );
+      if (seen.isNotEmpty) return false;
+      final existing = await txn.rawQuery(
+        '''SELECT id FROM recipes_json WHERE name = ?
+        UNION ALL SELECT id FROM recipe_families WHERE name = ? LIMIT 1''',
+        [recipe.name, recipe.name],
+      );
+      if (existing.isEmpty) await _save(txn, recipe);
+      await txn.insert('bundled_recipe_imports', {'asset_path': assetPath});
+      return existing.isEmpty;
+    });
+  }
+
   Future<int> save(
     RecipeData recipe, {
     int? id,
@@ -302,6 +327,89 @@ class RecipeRepository {
         familyId: familyId,
         variantName: name,
       );
+    });
+  }
+
+  /// Imported content always receives a new local ID and its own initial revision.
+  Future<int> importVariant(
+    int familyId,
+    String name,
+    RecipeData recipe,
+  ) async {
+    if (name.trim().isEmpty) throw const FormatException('variantName');
+    final db = await _database();
+    return db.transaction((txn) async {
+      await _row(txn, 'recipe_families', familyId);
+      final existing = await txn.query(
+        'recipe_variants',
+        where: 'family_id = ? AND variant_key = ?',
+        whereArgs: [familyId, name.trim().toLowerCase()],
+      );
+      if (existing.isNotEmpty) throw const FormatException('duplicateVariant');
+      return _save(txn, recipe, familyId: familyId, variantName: name);
+    });
+  }
+
+  /// Returns the variant to display after deletion. Existing session snapshots
+  /// remain independent; no cover files are removed because history/bakes use them.
+  Future<int> deleteVariant(int recipeId, {int? replacementId}) async {
+    final db = await _database();
+    return db.transaction((txn) async {
+      final member = await txn.query(
+        'recipe_variants',
+        where: 'recipe_id = ?',
+        whereArgs: [recipeId],
+      );
+      if (member.isEmpty) throw StateError('missingVariant');
+      final familyId = member.single['family_id'] as int;
+      final family = await _row(txn, 'recipe_families', familyId);
+      final members = await txn.query(
+        'recipe_variants',
+        where: 'family_id = ?',
+        whereArgs: [familyId],
+      );
+      final remaining = members
+          .map((r) => r['recipe_id'] as int)
+          .where((id) => id != recipeId)
+          .toSet();
+      if (remaining.isEmpty) throw const FormatException('lastVariant');
+      final isMain = family['main_recipe_id'] == recipeId;
+      if (isMain && !remaining.contains(replacementId)) {
+        throw const FormatException('replacementVariant');
+      }
+      final users = <String>[];
+      for (final row in await txn.rawQuery(
+        '''SELECT r.*, f.name AS family_name, v.variant_name
+        FROM recipes_json r JOIN recipe_variants v ON v.recipe_id = r.id
+        JOIN recipe_families f ON f.id = v.family_id WHERE r.id != ?''',
+        [recipeId],
+      )) {
+        if (_decode(row).preparations.any((p) => p.recipeId == recipeId)) {
+          users.add('${row['family_name']} · ${row['variant_name']}');
+        }
+      }
+      if (users.isNotEmpty) throw VariantDeletionBlocked(users);
+      final nextId = isMain ? replacementId! : family['main_recipe_id'] as int;
+      if (isMain) {
+        await txn.update(
+          'recipe_families',
+          {'main_recipe_id': nextId},
+          where: 'id = ?',
+          whereArgs: [familyId],
+        );
+      }
+      await txn.delete(
+        'recipe_revisions',
+        where: 'recipe_id = ?',
+        whereArgs: [recipeId],
+      );
+      await txn.delete(
+        'recipe_variants',
+        where: 'recipe_id = ?',
+        whereArgs: [recipeId],
+      );
+      await txn.delete('recipes_json', where: 'id = ?', whereArgs: [recipeId]);
+      return nextId;
     });
   }
 

@@ -12,7 +12,7 @@ Future<Database> recipeTestDatabase() async {
   return databaseFactoryFfi.openDatabase(
     inMemoryDatabasePath,
     options: OpenDatabaseOptions(
-      version: 4,
+      version: 5,
       singleInstance: false,
       onConfigure: (db) => db.execute('PRAGMA foreign_keys = ON'),
       onCreate: (db, _) async {
@@ -20,6 +20,7 @@ Future<Database> recipeTestDatabase() async {
         await createBakingSessions(db);
         await createRecipeFamilies(db);
         await createRecipeOrdering(db);
+        await createBundledRecipeImports(db);
       },
     ),
   );

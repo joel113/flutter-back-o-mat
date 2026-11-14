@@ -1,0 +1,108 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Schnelle Pizza",
+  "description": "Schneller Pizzateig aus Weizenmehl und Dinkelvollkornmehl mit Weizenanstellgut und Frischhefe. Der Teig eignet sich auch für Ciabatta und Baguette. Das aktive Malzmehl ist optional.",
+  "author": {
+    "@type": "Person",
+    "name": "Lutz Geißler"
+  },
+  "datePublished": "2017-06-24",
+  "url": "https://www.ploetzblog.de/rezepte/schnelle-pizza/id=620e2876046c4a4011d8ccca",
+  "recipeCategory": "Pizza",
+  "recipeCuisine": "Italienisch",
+  "keywords": "Pizza, Pizzateig, Sauerteig, Weizen, Dinkel, schnelle Pizza",
+  "recipeYield": "4 Pizzen à ca. 250 g Teig",
+  "prepTime": "PT4H22M",
+  "cookTime": "PT4M",
+  "totalTime": "PT4H26M",
+  "recipeIngredient": [
+    "12 g Salz (20 °C)",
+    "351 g Wasser (30 °C)",
+    "18 g Olivenöl (20 °C)",
+    "494 g Weizenmehl Type 550 (20 °C)",
+    "58 g Dinkelvollkornmehl (20 °C)",
+    "2,9 g aktives Malzmehl (20 °C, optional)",
+    "58 g Weizenanstellgut TA 200, weich (5 °C)",
+    "5,8 g Frischhefe (5 °C)"
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "name": "Hauptteig vorbereiten",
+      "text": "Die Zutaten in der angegebenen Reihenfolge in die Rührschüssel wiegen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Zutaten vermischen",
+      "text": "Alle Zutaten zu einem Teig vermischen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Hauptteig kneten",
+      "text": "Den Teig so lange kneten, bis der Fenstertest gelingt. Die angestrebte Teigtemperatur beträgt etwa 26 °C."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Stockgare",
+      "text": "Den Teig 2,5 Stunden bei 20 °C reifen lassen, bis sich sein Volumen verdoppelt hat und große Blasen sichtbar sind. Nach 30, 60, 90 und 120 Minuten jeweils dehnen und falten."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Portionieren",
+      "text": "Vier Teiglinge zu jeweils 250 g abstechen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Rundwirken",
+      "text": "Die Teiglinge vorsichtig rund einschlagen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Erste Stückgare",
+      "text": "Die Teiglinge mit dem Schluss nach oben in leicht bemehltem Leinen abgedeckt 30 Minuten bei 20 °C reifen lassen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Vorformen",
+      "text": "Die Teiglinge umdrehen, sodass der Schluss nach unten zeigt. Mit den Fingerspitzen rundherum einen Pizzarand abdrücken."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Zweite Stückgare",
+      "text": "Die Teiglinge mit dem Schluss nach unten in leicht bemehltem Leinen abgedeckt weitere 30 Minuten bei 20 °C reifen lassen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Backofen vorheizen",
+      "text": "Während der Stückgare den Backofen mit Backstein oder Backstahl auf 280–300 °C vorheizen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Pizzaboden formen",
+      "text": "Den jeweiligen Teigling großzügig bemehlen und vorsichtig zu einem dünnen Pizzaboden ausziehen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Pizza vorbereiten",
+      "text": "Den Pizzaboden auf Backpapier oder direkt auf einen Pizzaschieber setzen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Pizza belegen",
+      "text": "Die Pizza nach Wunsch belegen."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Pizza backen",
+      "text": "Die Pizza auf den vorgeheizten Backstein oder Backstahl einschießen und bei 280–300 °C ohne Dampf 3–5 Minuten backen. Alternativ bei 250 °C etwa 8–10 Minuten backen."
+    }
+  ],
+  "tool": [
+    "Küchenmaschine",
+    "Teigkarte",
+    "Bäckerleinen",
+    "Pizzaschieber",
+    "Backstein oder Backstahl"
+  ]
+}

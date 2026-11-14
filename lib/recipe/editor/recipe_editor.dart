@@ -18,7 +18,11 @@ class RecipeEditor extends StatefulWidget {
     this.id,
     this.notice,
     this.repository,
-  });
+    this.familyId,
+    this.variantName = '',
+  }) : assert(id == null || familyId == null);
+  final int? familyId;
+  final String variantName;
   final RecipeData recipe;
   final int? id;
   final String? notice;
@@ -43,6 +47,7 @@ class _RecipeEditorState extends State<RecipeEditor> {
           recipe.preparations.isNotEmpty);
 
   String changeDescription = '';
+  late String variantName = widget.variantName;
   bool saving = false;
   String? error;
   String? coverPath;
@@ -101,18 +106,25 @@ class _RecipeEditorState extends State<RecipeEditor> {
       error = null;
     });
     try {
-      if (await repository.hasDuplicateName(recipe.name, exceptId: widget.id)) {
+      if (widget.familyId == null &&
+          await repository.hasDuplicateName(recipe.name, exceptId: widget.id)) {
         if (!mounted || !await confirm(s.duplicateName, s.saveAnother)) return;
       }
       if (coverPath != null) {
         recipe.image = await RecipeImage.copyCover(coverPath!);
         coverPath = null;
       }
-      final id = await repository.save(
-        recipe,
-        id: widget.id,
-        changeDescription: changeDescription,
-      );
+      final id = widget.familyId != null
+          ? await repository.importVariant(
+              widget.familyId!,
+              variantName,
+              recipe,
+            )
+          : await repository.save(
+              recipe,
+              id: widget.id,
+              changeDescription: changeDescription,
+            );
       if (!mounted) return;
       setState(() {
         dirty = false;
@@ -121,8 +133,15 @@ class _RecipeEditorState extends State<RecipeEditor> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) Navigator.pop(context, id);
       });
-    } on FormatException {
-      if (mounted) setState(() => error = s.invalidPreparations);
+    } on FormatException catch (e) {
+      if (mounted) {
+        setState(
+          () => error =
+              e.message == 'duplicateVariant' || e.message == 'variantName'
+              ? s.duplicateVariant
+              : s.invalidPreparations,
+        );
+      }
     } catch (_) {
       if (mounted) setState(() => error = s.saveError);
     } finally {
@@ -240,7 +259,13 @@ class _RecipeEditorState extends State<RecipeEditor> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.id == null ? s.addRecipe : s.editRecipe),
+          title: Text(
+            widget.familyId != null
+                ? s.importVariant
+                : widget.id == null
+                ? s.addRecipe
+                : s.editRecipe,
+          ),
           actions: [
             TextButton(
               key: const ValueKey('saveRecipe'),
@@ -272,6 +297,15 @@ class _RecipeEditorState extends State<RecipeEditor> {
                               color: Theme.of(context).colorScheme.error,
                             ),
                           ),
+                        ),
+                      if (widget.familyId != null)
+                        text(
+                          s.variantName,
+                          variantName,
+                          (v) => variantName = v,
+                          validator: (v) => v == null || v.trim().isEmpty
+                              ? s.nameRequired
+                              : null,
                         ),
                       text(
                         s.recipeName,

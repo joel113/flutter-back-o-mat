@@ -9,6 +9,7 @@ import 'recipe_preparations.dart';
 import 'recipe_history.dart';
 import '../data/recipe_repository.dart';
 import 'recipe_editor.dart';
+import 'recipe_file_import.dart';
 import 'recipe_image.dart';
 import 'recipe_messages.dart';
 import '../../theme/app_components.dart';
@@ -21,9 +22,11 @@ class RecipeView extends StatefulWidget {
     this.repository,
     this.preview,
     this.previewActions = const [],
+    this.importFile,
   });
   final int id;
   final RecipeData? preview;
+  final Future<RecipeData?> Function(BuildContext)? importFile;
   final List<Widget> previewActions;
   final bool baking;
   final RecipeRepository? repository;
@@ -237,6 +240,129 @@ class _RecipeViewState extends State<RecipeView> {
     if (mounted) refresh();
   }
 
+  Future<void> importVariant(RecipeFamily family) async {
+    final s = AppLocalizations.of(context)!;
+    setState(() => managing = true);
+    try {
+      final imported = await (widget.importFile ?? importRecipeFile)(context);
+      if (imported == null || !mounted) return;
+      final id = await Navigator.push<int>(
+        context,
+        MaterialPageRoute(
+          builder: (_) => RecipeEditor(
+            recipe: imported,
+            repository: repository,
+            familyId: family.id,
+            variantName: imported.name,
+            notice: recipeImportNotice(s, imported),
+          ),
+        ),
+      );
+      if (id != null && mounted) {
+        selectedId = id;
+        refresh();
+      }
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(s.importError)));
+      }
+    } finally {
+      if (mounted) setState(() => managing = false);
+    }
+  }
+
+  Future<void> deleteVariant(RecipeRecord record) async {
+    final s = AppLocalizations.of(context)!;
+    final family = record.family!;
+    final others = family.variants.where((v) => v.id != selectedId).toList();
+    if (others.isEmpty) return;
+    final isMain = selectedId == family.mainRecipeId;
+    var replacement = others.first.id;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(s.deleteVariant),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              record.variant!.name,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 12),
+            Text(s.deleteVariantConfirm),
+            if (isMain) ...[
+              const SizedBox(height: 16),
+              DropdownButtonFormField<int>(
+                initialValue: replacement,
+                isExpanded: true,
+                decoration: InputDecoration(labelText: s.newMainVariant),
+                items: [
+                  for (final v in others)
+                    DropdownMenuItem(
+                      value: v.id,
+                      child: Text(v.name, overflow: TextOverflow.ellipsis),
+                    ),
+                ],
+                onChanged: (id) {
+                  if (id != null) replacement = id;
+                },
+              ),
+            ],
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(s.cancel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(s.deleteVariant),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    setState(() => managing = true);
+    try {
+      final next = await repository.deleteVariant(
+        selectedId,
+        replacementId: isMain ? replacement : null,
+      );
+      if (mounted) {
+        selectedId = next;
+        refresh();
+      }
+    } on VariantDeletionBlocked catch (e) {
+      if (!mounted) return;
+      await showDialog<void>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(s.deleteVariant),
+          content: SingleChildScrollView(
+            child: Text('${s.variantInUse}\n\n${e.recipes.join('\n')}'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(MaterialLocalizations.of(context).closeButtonLabel),
+            ),
+          ],
+        ),
+      );
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(s.variantDeleteError)));
+      }
+    } finally {
+      if (mounted) setState(() => managing = false);
+    }
+  }
+
   Widget familyControls(RecipeRecord record) {
     final s = AppLocalizations.of(context)!;
     final family = record.family!;
@@ -286,6 +412,23 @@ class _RecipeViewState extends State<RecipeView> {
                     }, variant: true),
               icon: const Icon(Icons.copy_outlined),
               label: Text(s.newVariant),
+            ),
+            TextButton.icon(
+              onPressed: managing ? null : () => importVariant(family),
+              icon: const Icon(Icons.file_open_outlined),
+              label: Text(s.importVariant),
+            ),
+            Tooltip(
+              message: family.variants.length < 2
+                  ? s.lastVariantProtected
+                  : s.deleteVariant,
+              child: TextButton.icon(
+                onPressed: managing || family.variants.length < 2
+                    ? null
+                    : () => deleteVariant(record),
+                icon: const Icon(Icons.delete_outline),
+                label: Text(s.deleteVariant),
+              ),
             ),
             if (selectedId != family.mainRecipeId)
               TextButton.icon(

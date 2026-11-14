@@ -67,12 +67,13 @@ void main() {
         db = await databaseFactoryFfi.openDatabase(
           path,
           options: OpenDatabaseOptions(
-            version: 4,
+            version: 5,
             singleInstance: false,
             onUpgrade: upgradeRecipeDatabase,
           ),
         );
         addTearDown(db.close);
+        expect(await db.query('bundled_recipe_imports'), isEmpty);
         final repository = RecipeRepository(database: () async => db);
         final record = await repository.loadRecord(17);
         expect(record.family!.mainRecipeId, 17);

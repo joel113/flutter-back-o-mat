@@ -67,7 +67,7 @@ class DatabaseHelperJson {
     ).path;
     return await openDatabase(
       path,
-      version: 4,
+      version: 5,
       onCreate: _onCreate,
       onUpgrade: upgradeRecipeDatabase,
     );
@@ -85,6 +85,7 @@ class DatabaseHelperJson {
     await createBakingSessions(db);
     await createRecipeFamilies(db);
     await createRecipeOrdering(db);
+    await createBundledRecipeImports(db);
   }
 
   Future<RecipeJsonEntry?> getRecipeJsonById(int id) async {

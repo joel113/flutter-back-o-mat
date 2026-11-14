@@ -2,12 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart' show AssetManifest, rootBundle;
 
-import 'db.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
+
 import '../../recipe/data/recipe_data.dart';
 import '../../recipe/data/recipe_repository.dart';
 
 class RecipeJsonImporter {
-  final dbHelper = DatabaseHelperJson();
+  RecipeJsonImporter({RecipeRepository? repository})
+    : repository = repository ?? RecipeRepository();
+  final RecipeRepository repository;
 
   Future<void> importRecipesFromAssets() async {
     final manifest = await AssetManifest.loadFromAssetBundle(rootBundle);
@@ -19,7 +22,7 @@ class RecipeJsonImporter {
         .toList();
 
     if (recipeFiles.isEmpty) {
-      print("No recipe JSON files found in assets/recipes/");
+      debugPrint("No recipe JSON files found in assets/recipes/");
       return;
     }
 
@@ -29,24 +32,19 @@ class RecipeJsonImporter {
         Map<String, dynamic> tempJson = json.decode(jsonString);
         String recipeName = tempJson['name'];
 
-        // Check if recipe already exists
-        RecipeJsonEntry? existing = await dbHelper.getRecipeJsonByName(
-          recipeName,
+        final imported = await repository.importBundled(
+          filePath,
+          RecipeData.fromExternalJson(tempJson),
         );
-        if (existing == null) {
-          print("Importing $recipeName (JSON)...");
-          await RecipeRepository().save(RecipeData.fromExternalJson(tempJson));
-          print("$recipeName (JSON) imported successfully.");
-        } else {
-          print(
-            "$recipeName (JSON) already exists. Skipping or implement update logic.",
-          );
-          // Optionally, update if the file is newer, etc.
-        }
+        debugPrint(
+          imported
+              ? '$recipeName imported.'
+              : '$recipeName already processed; skipping.',
+        );
       } catch (e) {
-        print("Error importing recipe (JSON) from $filePath: $e");
+        debugPrint("Error importing recipe (JSON) from $filePath: $e");
       }
     }
-    print("All JSON recipes processed.");
+    debugPrint("All JSON recipes processed.");
   }
 }

@@ -179,6 +179,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get preparationSnapshotHint => 'Saved preparation recipes and notes';
 
   @override
+  String get importVariant => 'Import variant from file';
+
+  @override
+  String get deleteVariant => 'Delete variant';
+
+  @override
+  String get deleteVariantConfirm =>
+      'Delete this variant and its revision history? Saved baking sessions remain available.';
+
+  @override
+  String get lastVariantProtected =>
+      'At least one variant must remain in this bread family.';
+
+  @override
+  String get newMainVariant => 'New main variant';
+
+  @override
+  String get variantInUse =>
+      'This variant is used as a preparation recipe. Remove or replace its links in these recipes first:';
+
+  @override
+  String get variantDeleteError =>
+      'Could not delete the variant. Nothing was changed.';
+
+  @override
   String get title => 'Back-o-Mat';
 
   @override

@@ -410,6 +410,48 @@ abstract class AppLocalizations {
   /// **'Saved preparation recipes and notes'**
   String get preparationSnapshotHint;
 
+  /// No description provided for @importVariant.
+  ///
+  /// In en, this message translates to:
+  /// **'Import variant from file'**
+  String get importVariant;
+
+  /// No description provided for @deleteVariant.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete variant'**
+  String get deleteVariant;
+
+  /// No description provided for @deleteVariantConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this variant and its revision history? Saved baking sessions remain available.'**
+  String get deleteVariantConfirm;
+
+  /// No description provided for @lastVariantProtected.
+  ///
+  /// In en, this message translates to:
+  /// **'At least one variant must remain in this bread family.'**
+  String get lastVariantProtected;
+
+  /// No description provided for @newMainVariant.
+  ///
+  /// In en, this message translates to:
+  /// **'New main variant'**
+  String get newMainVariant;
+
+  /// No description provided for @variantInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'This variant is used as a preparation recipe. Remove or replace its links in these recipes first:'**
+  String get variantInUse;
+
+  /// No description provided for @variantDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the variant. Nothing was changed.'**
+  String get variantDeleteError;
+
   /// No description provided for @title.
   ///
   /// In en, this message translates to:

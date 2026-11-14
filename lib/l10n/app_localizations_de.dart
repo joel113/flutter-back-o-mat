@@ -183,6 +183,31 @@ class AppLocalizationsDe extends AppLocalizations {
       'Gespeicherte Vorbereitungsrezepte und Notizen';
 
   @override
+  String get importVariant => 'Variante aus Datei importieren';
+
+  @override
+  String get deleteVariant => 'Variante löschen';
+
+  @override
+  String get deleteVariantConfirm =>
+      'Diese Variante und ihren Versionsverlauf löschen? Gespeicherte Backvorgänge bleiben erhalten.';
+
+  @override
+  String get lastVariantProtected =>
+      'In dieser Brotfamilie muss mindestens eine Variante erhalten bleiben.';
+
+  @override
+  String get newMainVariant => 'Neue Hauptvariante';
+
+  @override
+  String get variantInUse =>
+      'Diese Variante wird als Vorbereitungsrezept verwendet. Entferne oder ersetze zuerst die Verknüpfungen in diesen Rezepten:';
+
+  @override
+  String get variantDeleteError =>
+      'Die Variante konnte nicht gelöscht werden. Es wurde nichts geändert.';
+
+  @override
   String get title => 'Back-o-Mat';
 
   @override
