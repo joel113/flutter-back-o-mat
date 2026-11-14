@@ -1019,7 +1019,7 @@ class _BakingViewState extends State<BakingView> with WidgetsBindingObserver {
                     ],
                   ),
                 ),
-                cell(actions(bake, stage.id)),
+                cell(actions(bake, stage.id, now, windows[stage.id]!.start)),
               ],
               if (showTimeline)
                 TableCell(
@@ -1097,23 +1097,37 @@ class _BakingViewState extends State<BakingView> with WidgetsBindingObserver {
     );
   }
 
-  Widget actions(BakingSession bake, int id) {
+  Widget actions(BakingSession bake, int id, DateTime now, DateTime planned) {
     final s = AppLocalizations.of(context)!;
     final status = bake.progress[id]!.status;
+    // Avoid an extra action for just the seconds spent opening a new bake.
+    final backdated = now.difference(planned) >= const Duration(minutes: 1);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (status == BakeStepStatus.pending)
           Tooltip(
-            message: bake.canStart(id) ? s.startStep : s.waitingDependencies,
+            message: !bake.canStart(id)
+                ? s.waitingDependencies
+                : backdated
+                ? s.startAtPlannedTime(bakeTime(context, planned))
+                : s.startStep,
             child: FilledButton(
               key: ValueKey('start-$id'),
               onPressed: editing || !bake.canStart(id)
                   ? null
-                  : () => change((b) => b.start(id, clock())),
+                  : () => change((b) => b.startPlanned(id, clock())),
               child: Text(s.startStep),
             ),
+          ),
+        if (status == BakeStepStatus.pending && bake.canStart(id) && backdated)
+          TextButton(
+            key: ValueKey('start-now-$id'),
+            onPressed: editing
+                ? null
+                : () => change((b) => b.start(id, clock())),
+            child: Text(s.startFromNow),
           ),
         if (status == BakeStepStatus.running)
           OutlinedButton(

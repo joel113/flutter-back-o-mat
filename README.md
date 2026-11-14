@@ -315,6 +315,14 @@ are marked done. Expiration shows an overdue countdown; it does not automaticall
 mark a step complete. Countdowns derive from saved end timestamps, so reopening
 or restarting the app preserves elapsed time. Paused time stays paused.
 
+To enter a bake retrospectively, choose a start in the past. **Start / Starten**
+uses the step's scheduled start, including its override and actual predecessor
+completion times, so elapsed time is already deducted. For example, a 60-minute
+step planned for 08:00 has 40 minutes left when started at 08:20. **Start from now /
+Ab jetzt starten** explicitly starts a past-planned step with its full duration.
+Overdue steps still require **Mark done**; future-planned steps started early use
+the actual current time. Existing running or completed timestamps are unchanged.
+
 Database version 2 adds `baking_sessions` alongside the existing recipes table.
 Removing a session requires confirmation and never deletes its source recipe.
 

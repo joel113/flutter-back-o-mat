@@ -226,6 +226,14 @@ class BakingSession {
     step.deadline = now.add(Duration(minutes: step.durationMinutes));
   }
 
+  /// Adopt the scheduled start for retrospective entry. Future plans still start
+  /// at the actual current time when the user starts a step early.
+  void startPlanned(int stageId, DateTime now) {
+    if (!canStart(stageId)) throw StateError('blockedStep');
+    final planned = schedule(now)[stageId]!.start;
+    start(stageId, planned.isBefore(now) ? planned : now);
+  }
+
   void pause(int stageId, DateTime now) {
     final step = progress[stageId]!;
     if (step.status != BakeStepStatus.running) throw StateError('notRunning');

@@ -204,6 +204,14 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not delete the variant. Nothing was changed.';
 
   @override
+  String get startFromNow => 'Start from now';
+
+  @override
+  String startAtPlannedTime(String time) {
+    return 'Start at $time and count elapsed time';
+  }
+
+  @override
   String get title => 'Back-o-Mat';
 
   @override

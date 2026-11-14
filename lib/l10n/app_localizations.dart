@@ -452,6 +452,18 @@ abstract class AppLocalizations {
   /// **'Could not delete the variant. Nothing was changed.'**
   String get variantDeleteError;
 
+  /// No description provided for @startFromNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Start from now'**
+  String get startFromNow;
+
+  /// No description provided for @startAtPlannedTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Start at {time} and count elapsed time'**
+  String startAtPlannedTime(String time);
+
   /// No description provided for @title.
   ///
   /// In en, this message translates to:

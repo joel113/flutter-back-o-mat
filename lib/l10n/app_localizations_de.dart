@@ -208,6 +208,14 @@ class AppLocalizationsDe extends AppLocalizations {
       'Die Variante konnte nicht gelöscht werden. Es wurde nichts geändert.';
 
   @override
+  String get startFromNow => 'Ab jetzt starten';
+
+  @override
+  String startAtPlannedTime(String time) {
+    return 'Ab $time starten und vergangene Zeit anrechnen';
+  }
+
+  @override
   String get title => 'Back-o-Mat';
 
   @override
